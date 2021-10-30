@@ -1,0 +1,33 @@
+<div class="class row mt-5 ">
+    <div class="col-lg-3">
+        <select class="form-select" aria-label="Default select example">
+            <option selected>Maternité</option>
+            <option value="1">Urgence</option>
+            <option value="2">Gynécologie</option>
+        </select>     
+    </div>
+
+    <div class="col-lg-3">
+        <select class="form-select" aria-label="Default select example">
+            <option selected>Afficher par</option>
+            <option value="1">Type de contrat</option>
+            <option value="2">Type de poste</option>
+            <option value="3">Agent</option>
+        </select>     
+    </div>
+
+    <div class="col-lg-3 btn-group" role="group" aria-label="Basic radio toggle button group">
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+        <label class="btn btn-outline-info" for="btnradio1">Semaine</label>
+      
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+        <label class="btn btn-outline-info" for="btnradio3">Jour</label>
+    </div>
+
+    <div class="col-lg-3">
+        <select class="form-select" aria-label="Default select example" (change) = "onSelectNombreSemaineChange($event.target)">
+            <option *ngFor="let n of listeSemaines, let i = index" [value]="(i+1)" selected>{{n}}</option>
+        </select>     
+    </div>
+</div>
+
