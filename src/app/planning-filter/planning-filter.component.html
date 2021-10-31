@@ -25,8 +25,8 @@
     </div>
 
     <div class="col-lg-3">
-        <select class="form-select" aria-label="Default select example" (change) = "onSelectNombreSemaineChange($event.target)">
-            <option *ngFor="let n of listeSemaines, let i = index" [value]="(i+1)" selected>{{n}}</option>
+        <select class="form-select" aria-label="Default select example" (change) = "onSelectNombreSemaineChange($event)">
+            <option *ngFor="let n of listeSemaines, let i = index" [value]="n" selected>{{n}}</option>
         </select>     
     </div>
 </div>

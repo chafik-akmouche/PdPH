@@ -10,6 +10,7 @@ export class PlanningFilterComponent implements OnInit {
 
   @Input() nombreSemaine : number;
   listeSemaines : Array<number>;
+  nombreSemaineSelect : any; 
 
   constructor(private planningFilter : PlanningFilterService) {
     this.nombreSemaine = 0;
@@ -18,7 +19,6 @@ export class PlanningFilterComponent implements OnInit {
 
   ngOnInit(): void {
     this.listeSemaines = this.generateListeSemaines();
-    console.log(this.listeSemaines);
   }
 
   generateListeSemaines(){
@@ -32,7 +32,7 @@ export class PlanningFilterComponent implements OnInit {
   }
 
   onSelectNombreSemaineChange($event : any){
-    console.log($event);
+    this.planningFilter.onSelectNombreSemaineChange($event.target.value);
   }
 
   
