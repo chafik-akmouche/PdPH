@@ -1,0 +1,20 @@
+<div class="row">
+    <app-planning-filter [nombreSemaine] = 'nw'></app-planning-filter>
+</div>
+
+<div class="row mt-5">
+    <table class="table-bordered">
+        <tr>
+            <td>Contrat</td>
+            <td>Agent</td>
+            <td *ngFor="let j of liste_jour, let i = index">{{liste_jour[i]}}</td>
+
+        </tr>
+
+        <tr *ngIf = "creneaux_agents != null">
+            <td>{{creneaux_agents.contrat}}</td>
+            <td>{{creneaux_agents.agent}}</td>
+            <td  *ngFor="let p of creneaux_agents.postes, let j = index" >{{creneaux_agents.postes[j]}}</td>
+        </tr>
+    </table>
+</div>

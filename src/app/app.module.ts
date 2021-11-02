@@ -9,14 +9,15 @@ import { PlanningFilterService} from './services/planning-filter.service';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PlanningFilterComponent } from './planning-filter/planning-filter.component';
-import { PlanningSemaineComponent } from './planning-semaine/planning-semaine.component';
+import { PlanningService } from './services/planning.service';
+import { PlanningViewComponent } from './planning-view/planning-view.component';
 @NgModule({
   declarations: [
     AppComponent,
     PlanningComponent,
     NavbarComponent,
     PlanningFilterComponent,
-    PlanningSemaineComponent
+    PlanningViewComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +25,8 @@ import { PlanningSemaineComponent } from './planning-semaine/planning-semaine.co
     FormsModule
   ],
   providers: [
-    PlanningFilterService
+    PlanningFilterService,
+    PlanningService
   ],
   bootstrap: [AppComponent]
 })

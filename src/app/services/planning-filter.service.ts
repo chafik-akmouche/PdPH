@@ -1,9 +1,9 @@
 export class PlanningFilterService{
 
-    nombreSemaine : number = 1;
+    static nombreSemaine : number = 1;
 
     onSelectNombreSemaineChange(nombre : number){
-        this.nombreSemaine = nombre;
+        PlanningFilterService.nombreSemaine = nombre;
     }
 
 }

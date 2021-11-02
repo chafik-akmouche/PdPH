@@ -1,18 +1,10 @@
-<!--on envoie au component filter le nombre de semaine de config 
-pour générer la liste des semaines d'affichage possible-->
+<table class="table-bordered">
+    <tr>
+        <td *ngFor="let pos of postes, let i = index">{{postes[i]}}</td>
+    </tr>
+</table>
 
-<app-planning-filter [nombreSemaine] = "nw"></app-planning-filter>
-<div class="row mt-5">
-    <app-planning-semaine *ngFor="let cycle_agent of cycles_agent" 
-    [agent] = "cycle_agent.agent" 
-    [contrat] = 'cycle_agent.contrat'
-    [creneaux] = 'setAgentPostesByNombreSemaineTable(getAgentPostesByNombreSemaines(cycle_agent.agent,5))'
-    ></app-planning-semaine>
-    <!-- communiquer au component planning semaine [agent] [contrat] ['M','S','J','-','-','N']-->
-</div>
-<div class="row mt-5">
-    <button class="btn btn-outline-info col-lg-3 align-right" [disabled] = "!isAuth"><i class="fa fa-plus m-2"></i>Nouveau planning</button>
-</div>
+
 
 
 

@@ -1,5 +1,8 @@
-import { Component, OnInit , Input} from '@angular/core';
+import { Content } from '@angular/compiler/src/render3/r3_ast';
+import { Component, OnInit , Input, ViewChild, ElementRef, AfterViewInit, Renderer2} from '@angular/core';
 import {PlanningFilterService } from '../services/planning-filter.service';
+import { PlanningService } from '../services/planning.service';
+
 
 @Component({
   selector: 'app-planning-filter',
@@ -10,9 +13,12 @@ export class PlanningFilterComponent implements OnInit {
 
   @Input() nombreSemaine : number;
   listeSemaines : Array<number>;
-  nombreSemaineSelect : any; 
+  nombreSemaineSelect: any;
 
-  constructor(private planningFilter : PlanningFilterService) {
+  @ViewChild('content')
+  content!: ElementRef;
+
+  constructor(private planningService : PlanningService, private renderer: Renderer2) {
     this.nombreSemaine = 0;
     this.listeSemaines = [];
   }
@@ -31,11 +37,12 @@ export class PlanningFilterComponent implements OnInit {
     return liste_nombre_semaine;
   }
 
+  @ViewChild('content') mon_element:ElementRef | undefined;
+
   onSelectNombreSemaineChange($event : any){
-    this.planningFilter.onSelectNombreSemaineChange($event.target.value);
-  }
-
-  
-
-
+    this.planningService.onSelectNombreSemaineChange($event.target.value);
+    this.planningService.setCreneauxAffichable($event.target.value);
+  }  
+ 
 }
+
