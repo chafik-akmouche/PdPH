@@ -15,6 +15,7 @@ import { PlanningViewComponent } from './planning-view/planning-view.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
+import { CsvReader } from './services/csvReader.service';
 
 const appRoutes : Routes = [
   { path: '', component: PlanningViewComponent },
@@ -37,13 +38,13 @@ const appRoutes : Routes = [
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ],
   providers: [
     PlanningFilterService,
     PlanningService,
-    CsvReader,
-
+    CsvReader
   ],
   bootstrap: [AppComponent]
 })
