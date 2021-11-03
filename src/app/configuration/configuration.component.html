@@ -1,0 +1,19 @@
+<br /> <br />
+<h2 class="text-muted"> Page de configuration </h2>
+<br />
+
+<form class="form" (ngSubmit)="lancerSolveur(f)" #f="ngForm">
+  <div class="input-group mb-3">
+    <label class="input-group-text" for="inputFile"> Charger un fichier de configuration </label>
+    <input type="file" class="form-control" name ="inputFile" id="inputFile" accept=".txt" ngModel>
+  </div>
+  <div>
+    <button type="submit" class="btn btn-info btn-md btn-block"> Lancer le solveur </button>
+  </div>
+</form>
+
+<br /> <br />
+
+<div class="nav">
+  <li routerLinkActive="active"><a routerLink="/" class="nav-item nav-link"> Voir les plannings </a></li>
+</div>
