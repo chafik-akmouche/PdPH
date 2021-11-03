@@ -5,16 +5,16 @@
 <div class="row mt-5">
     <table class="table-bordered">
         <tr>
-            <td>Contrat</td>
+            <td >Contrat</td>
             <td>Agent</td>
-            <td *ngFor="let j of liste_jour, let i = index">{{liste_jour[i]}}</td>
-
+            <td class="text-center" *ngFor="let j of liste_jour, let i = index" [ngStyle] = "{ 'background-color' : (liste_jour[i] == ' ') ? '#5bc0de' : 'white', 
+                                                                           'padding' : (liste_jour[i] == ' ') ? '1px' : '0px'} ">{{liste_jour[i]}}</td>
         </tr>
 
-        <tr *ngIf = "creneaux_agents != null">
-            <td>{{creneaux_agents.contrat}}</td>
-            <td>{{creneaux_agents.agent}}</td>
-            <td  *ngFor="let p of creneaux_agents.postes, let j = index" >{{creneaux_agents.postes[j]}}</td>
+        <tr *ngFor="let creneaux_agent of creneaux_agents">
+            <td>{{creneaux_agent.contrat}}</td>
+            <td>{{creneaux_agent.agent}}</td>
+            <td class="text-center" *ngFor="let p of creneaux_agent.postes, let j = index"  [ngStyle] = "{ 'background-color' : (creneaux_agent.postes[j] == ' ' && nombreSemaineSelect > 1) ? '#5bc0de' : 'white'}">{{creneaux_agent.postes[j]}}</td>
         </tr>
     </table>
 </div>

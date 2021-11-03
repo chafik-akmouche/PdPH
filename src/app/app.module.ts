@@ -11,6 +11,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { PlanningFilterComponent } from './planning-filter/planning-filter.component';
 import { PlanningService } from './services/planning.service';
 import { PlanningViewComponent } from './planning-view/planning-view.component';
+import { CsvReader } from './services/csvReader.service';
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,11 +25,14 @@ import { PlanningViewComponent } from './planning-view/planning-view.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
     PlanningFilterService,
-    PlanningService
+    PlanningService,
+    CsvReader,
+    
   ],
   bootstrap: [AppComponent]
 })

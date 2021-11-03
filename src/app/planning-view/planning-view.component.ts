@@ -12,7 +12,7 @@ export class PlanningViewComponent implements OnInit {
 
   isAuth = false;
   nw : number = 9;
-  public creneaux_agents!: Creneau;
+  public creneaux_agents !: Creneau[];
   nombreSemaineSelect : number = 1;
   liste_jour: string[];
 
@@ -25,11 +25,12 @@ export class PlanningViewComponent implements OnInit {
     this.planningService.listeNombreS.subscribe(n => {
       this.nombreSemaineSelect = n;
       this.generateListeDate(this.nombreSemaineSelect);
+      this.planningService.creneaux_Aff.emit(this.planningService.tab_creneau);
     })
   }
 
 
-  private onCreneauAdded( creneau : Creneau){
+  private onCreneauAdded( creneau : Creneau[]){
     this.creneaux_agents = creneau;
   }
 
@@ -37,7 +38,12 @@ export class PlanningViewComponent implements OnInit {
     let jours = ["lun","mar","mer","jeu","vend","sam","dim"];
     this.liste_jour = [];
     for(let i = 1; i <= nombre; i++){
-      this.liste_jour = this.liste_jour.concat(jours);
+      if(i < nombre){
+        this.liste_jour = this.liste_jour.concat(jours);
+        this.liste_jour.push(" ");
+      }
+      else
+          this.liste_jour = this.liste_jour.concat(jours);
     }
   }
 }
