@@ -1,11 +1,15 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Creneau } from "./creneauxAgent.service";
+import { Creneau } from "./planning.service";
 
 @Injectable()
+
 export class CsvReader {
-  public creneauArray: Creneau[] = [];
-  constructor(private http: HttpClient) {}
+  public creneauArray: Creneau[];
+ 
+  constructor(private http: HttpClient) {
+    this.creneauArray = [];
+  }
 
   getCsvContent () {
     this.http.get('assets/mon_fichier.csv', {responseType: 'text'})
@@ -14,7 +18,7 @@ export class CsvReader {
         let csvToRowArray = data.split("\n");
         for (let i=0; i<csvToRowArray.length-1; i++) {
           let row = csvToRowArray[i].split(";");
-          let m_postes: String[] = [];
+          let m_postes: string[] = [];
           for (let j=0; j<row.length-2; j++) {
             m_postes[j] = row[j+2];
           }
