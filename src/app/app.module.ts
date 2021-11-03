@@ -11,18 +11,33 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { PlanningFilterComponent } from './planning-filter/planning-filter.component';
 import { PlanningService } from './services/planning.service';
 import { PlanningViewComponent } from './planning-view/planning-view.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
+import { RouterModule, Routes } from '@angular/router';
+import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
+
+const appRoutes : Routes = [
+  { path: '', component: PlanningViewComponent },
+  { path: 'configuration', component: ConfigurationComponent },
+  { path: 'connexion', component: PlanningViewComponent },
+  { path: 'not-found', component: FourOhFourComponent },
+  { path: '**', redirectTo: 'not-found' }
+];
+
 @NgModule({
   declarations: [
     AppComponent,
     PlanningComponent,
     NavbarComponent,
     PlanningFilterComponent,
-    PlanningViewComponent
+    PlanningViewComponent,
+    ConfigurationComponent,
+    FourOhFourComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [
     PlanningFilterService,
