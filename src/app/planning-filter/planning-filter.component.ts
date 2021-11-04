@@ -1,4 +1,5 @@
 import { Component, OnInit , Input, ViewChild, ElementRef, AfterViewInit, Renderer2} from '@angular/core';
+import { NgModel } from '@angular/forms';
 import { CsvReader } from '../services/csvReader.service';
 import { PlanningService } from '../services/planning.service';
 import { SelectSolution, Solution } from '../services/selectSolution.service';
@@ -10,11 +11,17 @@ import { SelectSolution, Solution } from '../services/selectSolution.service';
   styleUrls: ['./planning-filter.component.css']
 })
 export class PlanningFilterComponent implements OnInit {
+  
+  isTypeAgent = false;
+  isTypeContrat = false;
+  isbtnSemaine = true;
+  isbtnJour = false;
 
   @Input() nombreSemaine : number;
   listeSemaines : Array<number>;
   nombreSemaineSelect: any;
   listeSolutions : Solution[] ;
+  listeContrats : string[];
 
   @ViewChild('content')
   content!: ElementRef;
@@ -24,6 +31,7 @@ export class PlanningFilterComponent implements OnInit {
     this.nombreSemaine = 0;
     this.listeSemaines = [];
     this.listeSolutions = [];
+    this.listeContrats = [];
   }
 
   ngOnInit(): void {
@@ -48,17 +56,49 @@ export class PlanningFilterComponent implements OnInit {
     //this.planningService.setCreneauxAffichable($event.target.value);
   }  
 
+  onSolutionSelectChange($event : any){
+    this.planningService.onSolutionSelectChange($event.target.value);
+  }
 
+  onSelectAfficherParChange($event : any){
+    this.planningService.onSelectAfficherParChange($event.target.value);
+    
+    switch($event.target.value){
+      case "typeC" : 
+        this.isTypeContrat = true;
+        this.isTypeAgent = false;
+        //recuperation de la liste des contrats à l'aide du service
+        this.listeContrats = this.planningService.selectListeContrat();
+      break;
+      case "agent":
+        this.isTypeAgent = true;
+        this.isTypeContrat = false;
+      break;
+      case "tout":
+        this.isTypeAgent = false;
+        this.isTypeContrat = false;
+      break;
+    }
+
+  }
+
+  onSelectTypeContratChange($event : any){
+    this.planningService.onTypeContratChange($event.target.value);
+  }
+
+  onSelectAgentChange($event : any){
+    this.planningService.onSelectAgentChange($event.target.value);
+  }
+
+
+  onSelectJourChange($event : any){
+
+  }
+ 
   getListSolution(){ 
     for(let solution of this.selectSolution.getSolutions()){
       this.listeSolutions.push(solution);
     }
   }
-
-  onSolutionSelectChange($event : any){
-    this.planningService.onSolutionSelectChange($event.target.value);
-  }
-
- 
 }
 
