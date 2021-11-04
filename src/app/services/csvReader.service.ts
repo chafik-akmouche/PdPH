@@ -9,7 +9,7 @@ export class CsvReader {
   constructor(private http: HttpClient) {
   }
   
-  async getCsvContent (file_path : string) {
+  getCsvContent (file_path : string) {
     let creneauArray: Creneau[] = new Array();
 
     this.http.get(file_path, {responseType: 'text'})

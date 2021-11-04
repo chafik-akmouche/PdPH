@@ -1,12 +1,12 @@
 <div class="class row mt-5 ">
     <div class="col-lg-3">
-        <select class="form-select" aria-label="Default select example">
+        <select class="form-select" aria-label="Default select example"  (change) = "onSolutionSelectChange($event)">
             <option *ngFor = "let solution of listeSolutions, let k = index" [selected] = "k == 0" 
                     [value] ="solution.path">{{solution.nom}}</option>
         </select>     
     </div>
 
-    <!-- (change) = "onSolutionSelectChange($event)" -->
+    <!--" -->
 
     <div class="col-lg-3">
         <select class="form-select" aria-label="Default select example">

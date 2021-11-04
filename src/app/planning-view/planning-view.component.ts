@@ -12,7 +12,7 @@ export class PlanningViewComponent implements OnInit {
 
   isAuth = false;
   nw : number = 9;
-  public creneaux_agents !: Creneau[];
+  public creneaux_agents_affiche !: Creneau[]; //les creneaux a afficher selon la semaine selectionnée
   nombreSemaineSelect : number = 1;
   fileSelect : string = "assets/solutions/fichier-1";
   liste_jour: string[];
@@ -20,24 +20,35 @@ export class PlanningViewComponent implements OnInit {
   constructor(private planningService : PlanningService){
     planningService.creneaux_Aff.subscribe(creneaux => this.onCreneauAdded(creneaux));
     this.liste_jour = [];
-  }
 
+  }
+ 
   ngOnInit(): void {
     this.planningService.listeNombreS.subscribe(n => {
       this.nombreSemaineSelect = n;
       this.generateListeDate(this.nombreSemaineSelect);
-      //console.log(this.planningService.creneaux_final);
-      //this.planningService.creneaux_Aff.emit();
     })
 
     this.planningService.listePath.subscribe(path => {
+      let creneaux : Creneau[] = [];
       this.fileSelect = path;
+
+      creneaux = this.planningService.getFileContent(this.fileSelect)
+      
+      setTimeout(
+        ()=>{
+          this.planningService.creneaux = creneaux;
+          this.planningService.setCreneauxAffichable(this.nombreSemaineSelect);
+        }, 1000
+      )
+
+      
+     
     })
   }
 
-
   private onCreneauAdded( creneau : Creneau[]){
-    this.creneaux_agents = creneau;
+    this.creneaux_agents_affiche = creneau;
   }
 
   generateListeDate(nombre : number){

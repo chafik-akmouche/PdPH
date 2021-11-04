@@ -16,12 +16,15 @@ export class PlanningService{
 
     constructor(private csvReader : CsvReader){
         this.creneaux_Aff = new EventEmitter();
+
         this.listeNombreS = new BehaviorSubject(this.nombreSemaineSelect);
         this.listePath = new BehaviorSubject(this.fichierSelect); 
 
-       this.creneaux = [];
+        this.creneaux = this.csvReader.getCsvContent(this.fichierSelect);
 
-       this.setCreneauxAffichable(this.nombreSemaineSelect);
+        setTimeout(() => {
+            this.setCreneauxAffichable(this.nombreSemaineSelect)
+        }, 500);
     }
 
     /*creneaux = [
@@ -94,7 +97,6 @@ export class PlanningService{
            cpt = 7;
            i = 0;
         }
-        //console.log(this.creneaux);
         this.creneaux_Aff.emit(tab_creneau);
     }
 
@@ -108,14 +110,13 @@ export class PlanningService{
         return liste;
     }
 
-    /*async onSolutionSelectChange(file_path:string){
-        this.listePath.next(file_path);
-        this.creneaux = await this.csvReader.getCsvContent(file_path);
-        console.log(this.creneaux);
-    }*/
+    onSolutionSelectChange(file_path:string){
+        this.fichierSelect = file_path;
+        this.listePath.next(this.fichierSelect);
+    }
 
-   async getFileContent(file_path : string){
-        return await this.csvReader.getCsvContent(file_path);
+    getFileContent(file_path : string){    
+        return this.csvReader.getCsvContent(file_path);
     }
 
 }

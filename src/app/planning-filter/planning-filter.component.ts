@@ -45,7 +45,7 @@ export class PlanningFilterComponent implements OnInit {
 
   onSelectNombreSemaineChange($event : any){
     this.planningService.onSelectNombreSemaineChange($event.target.value);
-    this.planningService.setCreneauxAffichable($event.target.value);
+    //this.planningService.setCreneauxAffichable($event.target.value);
   }  
 
 
@@ -55,9 +55,9 @@ export class PlanningFilterComponent implements OnInit {
     }
   }
 
-  /*onSolutionSelectChange($event : any){
+  onSolutionSelectChange($event : any){
     this.planningService.onSolutionSelectChange($event.target.value);
-  }*/
+  }
 
  
 }
