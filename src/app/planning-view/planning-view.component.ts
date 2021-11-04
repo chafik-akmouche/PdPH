@@ -14,6 +14,7 @@ export class PlanningViewComponent implements OnInit {
   nw : number = 9;
   public creneaux_agents !: Creneau[];
   nombreSemaineSelect : number = 1;
+  fileSelect : string = "assets/solutions/fichier-1";
   liste_jour: string[];
 
   constructor(private planningService : PlanningService){
@@ -25,7 +26,12 @@ export class PlanningViewComponent implements OnInit {
     this.planningService.listeNombreS.subscribe(n => {
       this.nombreSemaineSelect = n;
       this.generateListeDate(this.nombreSemaineSelect);
-      this.planningService.creneaux_Aff.emit(this.planningService.tab_creneau);
+      //console.log(this.planningService.creneaux_final);
+      //this.planningService.creneaux_Aff.emit();
+    })
+
+    this.planningService.listePath.subscribe(path => {
+      this.fileSelect = path;
     })
   }
 

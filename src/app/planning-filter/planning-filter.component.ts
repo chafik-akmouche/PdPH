@@ -1,7 +1,7 @@
-import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { Component, OnInit , Input, ViewChild, ElementRef, AfterViewInit, Renderer2} from '@angular/core';
-import {PlanningFilterService } from '../services/planning-filter.service';
+import { CsvReader } from '../services/csvReader.service';
 import { PlanningService } from '../services/planning.service';
+import { SelectSolution, Solution } from '../services/selectSolution.service';
 
 
 @Component({
@@ -14,17 +14,21 @@ export class PlanningFilterComponent implements OnInit {
   @Input() nombreSemaine : number;
   listeSemaines : Array<number>;
   nombreSemaineSelect: any;
+  listeSolutions : Solution[] ;
 
   @ViewChild('content')
   content!: ElementRef;
 
-  constructor(private planningService : PlanningService, private renderer: Renderer2) {
+  constructor(private planningService : PlanningService, private renderer: Renderer2,
+              private selectSolution : SelectSolution, private csvReader : CsvReader) {
     this.nombreSemaine = 0;
     this.listeSemaines = [];
+    this.listeSolutions = [];
   }
 
   ngOnInit(): void {
     this.listeSemaines = this.generateListeSemaines();
+    this.getListSolution();
   }
 
   generateListeSemaines(){
@@ -43,6 +47,18 @@ export class PlanningFilterComponent implements OnInit {
     this.planningService.onSelectNombreSemaineChange($event.target.value);
     this.planningService.setCreneauxAffichable($event.target.value);
   }  
+
+
+  getListSolution(){ 
+    for(let solution of this.selectSolution.getSolutions()){
+      this.listeSolutions.push(solution);
+    }
+  }
+
+  /*onSolutionSelectChange($event : any){
+    this.planningService.onSolutionSelectChange($event.target.value);
+  }*/
+
  
 }
 
