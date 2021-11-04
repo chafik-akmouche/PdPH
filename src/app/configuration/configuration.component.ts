@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { SelectSolution } from '../services/selectSolution.service';
 
 @Component({
   selector: 'app-configuration',
@@ -8,10 +9,10 @@ import { NgForm } from '@angular/forms';
 })
 export class ConfigurationComponent {
 
-  file : string;
+  file_entree : string;
 
-  constructor() {
-    this.file = "";
+  constructor(private selectSolution : SelectSolution) {
+    this.file_entree = "";
   }
 
   checkFile(file : string) {
@@ -20,8 +21,15 @@ export class ConfigurationComponent {
 
 
   lancerSolveur(form: NgForm) {
-    console.log(this.checkFile(form.value["inputFile"]));
-    // appeler le back
+    if(this.checkFile(form.value["inputFile"])){
+       // appeler le back
+     setTimeout(
+       ()=> {
+         
+       },5000
+     );
+    }
+    
   }
 
 }

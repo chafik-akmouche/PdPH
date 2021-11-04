@@ -1,0 +1,10 @@
+100%;Agent 1;M1;M1;M1;M1;M1;.;.;S1;S1;S1;S1;S1;.;.
+100%;Agent 2;S1;S1;S1;S1;S1;.;.;M1;M1;M1;M1;M1;.;.
+100%;Agent 3;M1;M1;M1;M1;M1;.;.;S1;S1;S1;S1;S1;.;.
+100%;Agent 4;S1;S1;S1;S1;S1;.;.;M1;M1;M1;M1;M1;.;.
+100%;Agent 5;M1;M1;M1;M1;M1;.;.;S1;S1;S1;S1;S1;.;.
+100%;Agent 6;S1;S1;S1;S1;S1;.;.;M1;M1;M1;M1;M1;.;.
+80%;Agent 1;M1;M1;.;Jca 1-1;Jca 1-1;.;.;Jca 0-0;Jca 0-0;.;Jca 1-1;Jca 1-1;.;.
+70%;Agent 1;Jca 0-0;Jca 0-0;Jca 0-0;Jca 1-1;.;.;.;.;.;M1;M1;M1;.;.
+70%;Agent 2;.;.;M1;M1;M1;.;.;Jca 0-0;Jca 0-0;Jca 0-0;Jca 1-1;.;.;.
+50%;Agent 1;.;.;.;Jca 1-1;Jca 1-1;.;.;M1;M1;Jca 1-1;.;.;.;.
