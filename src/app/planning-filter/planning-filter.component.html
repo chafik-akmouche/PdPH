@@ -1,34 +1,61 @@
 <div class="class row mt-5 ">
-    <div class="col-lg-3">
+    <div class="col-lg">
         <select class="form-select" aria-label="Default select example"  (change) = "onSolutionSelectChange($event)">
             <option *ngFor = "let solution of listeSolutions, let k = index" [selected] = "k == 0" 
                     [value] ="solution.path">{{solution.nom}}</option>
         </select>     
     </div>
 
-    <!--" -->
+    <!-- selection du type de trie -->
 
-    <div class="col-lg-3">
+    <div class="col-lg" (change) = "onSelectAfficherParChange($event)">
         <select class="form-select" aria-label="Default select example">
-            <option selected>Afficher par</option>
-            <option value="1">Type de contrat</option>
-            <option value="2">Type de poste</option>
-            <option value="3">Agent</option>
+            <option selected value="tout">Afficher par</option>
+            <option value="typeC">Type de contrat</option>
+            <option value="agent">Agent</option>
         </select>     
     </div>
 
-    <div class="col-lg-3 btn-group" role="group" aria-label="Basic radio toggle button group">
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+
+    <!-- selection de l'agent -->
+    <div class="col-lg" *ngIf = "isTypeAgent">
+       <input type="text" name="agent" class="form-control" placeholder="Nom agent" (keyup)="onSelectAgentChange($event)">    
+    </div>
+
+    <!-- selection du type de contrat -->
+    <div class="col-lg" *ngIf = "isTypeContrat" (change) = "onSelectTypeContratChange($event)">
+        <select class="form-select">
+            <option value="tout" selected>tout les contrats</option>
+            <option *ngFor="let c of listeContrats, let i = index" [value]="c">{{c}}</option>
+        </select>
+     </div>
+
+     <!-- selection de l'affichage par semaine ou par jour -->
+    <div class="col-lg btn-group" role="group" aria-label="Basic radio toggle button group">
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" [checked] = "isbtnSemaine">
         <label class="btn btn-outline-info" for="btnradio1">Semaine</label>
       
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" [checked] = "isbtnJour" >
         <label class="btn btn-outline-info" for="btnradio3">Jour</label>
     </div>
 
-    <div class="col-lg-3">
+    <!-- selection du numéro de semaine -->
+    <div class="col-lg" *ngIf="isbtnSemaine">
         <select class="form-select" aria-label="Default select example" (change) = "onSelectNombreSemaineChange($event)">
             <option *ngFor="let n of listeSemaines, let i = index" [value]="n" [selected] = "i==0">{{n}}</option>
         </select>     
     </div>
+
+    <div class="col-lg" *ngIf="isbtnJour">
+        <select class="form-select" aria-label="Default select example" (change) = "onSelectJourChange($event)">
+            <option value = "lun">lundi</option>
+            <option value = "mar">mardi</option>
+            <option value = "mer">mercredi</option>
+            <option value = "jeu">jeudi</option>
+            <option value = "vend">vendredi</option>
+            <option value = "sam">samedi</option>
+        </select>     
+    </div>
+
 </div>
 

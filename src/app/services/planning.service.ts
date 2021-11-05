@@ -8,22 +8,31 @@ export class PlanningService{
 
     private nombreSemaineSelect : number = 1;
     private fichierSelect : string = 'assets/solutions/fichier-1.csv';
+    private typeAffichageSelect : string = 'tout';
+    private typeContratSelect : string = "tout";
+    private agentSelect : string = "";
     private nw : number = 9; //nombre de semaine lu a partir des données de configuration
     public creneaux_Aff : EventEmitter<Creneau[]>;
     public listeNombreS : BehaviorSubject<number>;
-    public creneaux : Creneau[] = [];
     public listePath : BehaviorSubject<string>;
+    public listeTypeAff : BehaviorSubject<string>;
+    public listeTypeContrat : BehaviorSubject<string>;
+    public listeAgent : BehaviorSubject<string>;
+    public creneaux : Creneau[] = [];
+    public creneaux_triee : Creneau[];
 
     constructor(private csvReader : CsvReader){
         this.creneaux_Aff = new EventEmitter();
 
         this.listeNombreS = new BehaviorSubject(this.nombreSemaineSelect);
         this.listePath = new BehaviorSubject(this.fichierSelect); 
-
+        this.listeTypeAff = new BehaviorSubject(this.typeAffichageSelect);
+        this.listeTypeContrat = new BehaviorSubject(this.typeContratSelect);
+        this.listeAgent = new BehaviorSubject(this.agentSelect);
         this.creneaux = this.csvReader.getCsvContent(this.fichierSelect);
-
+        this.creneaux_triee = this.creneaux;
         setTimeout(() => {
-            this.setCreneauxAffichable(this.nombreSemaineSelect)
+            this.setCreneauxAffichable(this.nombreSemaineSelect,this.typeAffichageSelect,this.creneaux);
         }, 500);
     }
 
@@ -60,14 +69,8 @@ export class PlanningService{
         }
     ]*/
 
-    onSelectNombreSemaineChange(nombre : number){
-        this.nombreSemaineSelect = nombre;
-        this.listeNombreS.next(this.nombreSemaineSelect);
-        this.setCreneauxAffichable(this.nombreSemaineSelect);
-    }
-
     
-    setCreneauxAffichable(nombre : number){
+    setCreneauxAffichable(nombre : number, type_trie : string , creneaux : Creneau[]){
         let cpt = 7;
         let new_poste : string[] = [];
         let poste_f : string[] = [];
@@ -75,7 +78,9 @@ export class PlanningService{
         let cpt_max = nombre * cpt;
         let i = 0;
 
-        for(let creneaux_agent of  this.creneaux){
+        this.setTabCreneauByTypeAffichage(this.creneaux,type_trie);
+
+        for(let creneaux_agent of  creneaux){
 
            while(i <= cpt && cpt <= cpt_max){
                if(i == cpt){
@@ -110,13 +115,84 @@ export class PlanningService{
         return liste;
     }
 
+    getFileContent(file_path : string){    
+        return this.csvReader.getCsvContent(file_path);
+    }
+
+    setTabCreneauByTypeAffichage(tab_creneau : Creneau[], type_affichage : string){
+     
+        switch(type_affichage){
+            case "tout" :
+                break;
+            case "typeC" :
+                tab_creneau.sort( 
+                    (c1 , c2) => {
+                        return (c1.contrat > c2.contrat) ? 1 : ((c2.contrat > c1.contrat) ? -1 : 0);
+                    })
+            break;
+            case "agent" :
+                tab_creneau.sort(
+                    (c1 , c2) => {
+                        return (c1.agent > c2.agent) ? 1 : ((c2.agent > c1.agent) ? -1 : 0);
+                    }
+                )
+            break;
+        }
+             
+    }
+
+    public selectListeContrat(){
+        let contrats : string[] = [];
+       
+        for(let c of this.creneaux){
+            contrats.push(c.contrat);
+        }
+
+        contrats = contrats.filter(function(item, pos) {
+            return contrats.indexOf(item) == pos;
+        })
+
+        return contrats;
+    }
+
+    public selectCreneauxByContrat(type_c : string){
+        let t_creneau : Creneau[] = [];
+        
+        for(let c of this.creneaux){
+            if(c.contrat == type_c)
+                t_creneau.push(c)
+        }
+
+        this.creneaux = t_creneau;
+    }
+
+    /*** Fonctions sur les évenements ***/
+
+    onSelectNombreSemaineChange(nombre : number){
+        this.nombreSemaineSelect = nombre;
+        this.listeNombreS.next(this.nombreSemaineSelect);
+        this.setCreneauxAffichable(this.nombreSemaineSelect,this.typeAffichageSelect,this.creneaux_triee);
+    }
+
     onSolutionSelectChange(file_path:string){
         this.fichierSelect = file_path;
+        this.creneaux_triee = this.creneaux;
         this.listePath.next(this.fichierSelect);
     }
 
-    getFileContent(file_path : string){    
-        return this.csvReader.getCsvContent(file_path);
+    onSelectAfficherParChange(type : string){
+        this.typeAffichageSelect = type;
+        this.listeTypeAff.next(this.typeAffichageSelect);
+    }
+
+    onTypeContratChange(type_contrat : string){
+        this.typeContratSelect = type_contrat;
+        this.listeTypeContrat.next(this.typeContratSelect);
+    }
+
+    onSelectAgentChange(nom_agent : string){
+        this.agentSelect = nom_agent;
+        this.listeAgent.next(this.agentSelect);
     }
 
 }
