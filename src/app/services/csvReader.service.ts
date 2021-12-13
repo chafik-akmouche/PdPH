@@ -22,7 +22,7 @@ export class CsvReader {
             for (let j=0; j<row.length-2; j++) {
               m_postes[j] = row[j+2];
             }
-            creneauArray[i] = new Creneau(row[0], row[1], m_postes);
+            creneauArray[i] = new Creneau(row[0], row[1], m_postes,"");
           }
         }
       );

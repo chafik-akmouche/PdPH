@@ -1,3 +1,4 @@
+import { keyframes } from "@angular/animations";
 import { EventEmitter, Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { CsvReader } from "./csvReader.service";
@@ -20,7 +21,7 @@ export class PlanningService{
     public listeAgent : BehaviorSubject<string>;
     public creneaux : Creneau[] = [];
     public creneaux_triee : Creneau[];
-
+    //public contratsColors : MyType;
     constructor(private csvReader : CsvReader){
         this.creneaux_Aff = new EventEmitter();
 
@@ -31,9 +32,6 @@ export class PlanningService{
         this.listeAgent = new BehaviorSubject(this.agentSelect);
         this.creneaux = this.csvReader.getCsvContent(this.fichierSelect);
         this.creneaux_triee = this.creneaux;
-        setTimeout(() => {
-            this.setCreneauxAffichable(this.nombreSemaineSelect,this.typeAffichageSelect,this.creneaux);
-        }, 500);
     }
 
     /*creneaux = [
@@ -77,10 +75,12 @@ export class PlanningService{
         let tab_creneau : Creneau[] = [];
         let cpt_max = nombre * cpt;
         let i = 0;
+        let color : string = "";
 
+        this.setCreneauxColor(this.generateColors());
         this.setTabCreneauByTypeAffichage(this.creneaux,type_trie);
 
-        for(let creneaux_agent of  creneaux){
+        for(let creneaux_agent of creneaux){
 
            while(i <= cpt && cpt <= cpt_max){
                if(i == cpt){
@@ -97,12 +97,15 @@ export class PlanningService{
                }
            }
 
-           tab_creneau.push(new Creneau(creneaux_agent.contrat, creneaux_agent.agent,poste_f));
+           tab_creneau.push(new Creneau(creneaux_agent.contrat, creneaux_agent.agent,poste_f,creneaux_agent.color));
            poste_f = [];
            cpt = 7;
            i = 0;
         }
+        
+        console.log(tab_creneau)
         this.creneaux_Aff.emit(tab_creneau);
+       
     }
 
     getListeSemaine(){
@@ -166,6 +169,63 @@ export class PlanningService{
         this.creneaux = t_creneau;
     }
 
+
+    /** fonction permettant de genéré la liste de couleur selon le différent type de poste
+        retourne un tableau associative dont les indices sont les types contrats et les valeurs sont les couleurs
+    **/
+
+    public generateColors(){
+        let contrats:string[] = [];
+        let colorsCount : number;
+        let listColors : string[] = [];
+        var obj: MyType = {};
+
+        for(let c of this.creneaux){ // recupération des différents type de couleur
+            if(contrats.indexOf(c.contrat) == -1){
+                contrats.push(c.contrat);
+            }
+        }
+
+        colorsCount = contrats.length; // comptage du nombre de couleur
+
+        for(let i = 0; i < colorsCount ; i++){ //generation du liste de couleur selon le nombre de contrat
+            let color = this.getRandomColor();
+
+            if(listColors.indexOf(color) == -1){
+                listColors.push(color);
+            }
+        }
+
+        for(let i = 0; i < colorsCount ; i++){ //generation du tableau associative a partir du liste de couleurs et contrats
+                                               //calculés précedemment
+            obj[contrats[i]] = listColors[i];
+        }
+        
+        return obj;
+    }
+
+    public setCreneauxColor(tabCouleurContrat : MyType){
+        let my_keys = Object.keys(tabCouleurContrat)
+
+        for(let c of this.creneaux){
+            for(let i = 0; i < my_keys.length; i++){
+                if(my_keys[i] == c.contrat)
+                    c.color = tabCouleurContrat[my_keys[i]];
+            }
+        }
+    }
+
+
+
+    public getRandomColor() : string {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
     /*** Fonctions sur les évenements ***/
 
     onSelectNombreSemaineChange(nombre : number){
@@ -195,15 +255,28 @@ export class PlanningService{
         this.listeAgent.next(this.agentSelect);
     }
 
+   
+
 }
 
 export class Creneau{
     public contrat: string;
     public agent: string;
     public postes: string[]
-    constructor(contrat: string, agent: string, postes: string[]){
+    public color: string;
+    
+    constructor(contrat: string, agent: string, postes: string[],color:string){
         this.contrat = contrat;
         this.agent = agent;
         this.postes = postes;
+        this.color = color;
     }
+}
+
+/* 
+    interface représentant le type de mon tableau associative retourner par
+    la fonction generateColors
+*/
+interface MyType {
+    [key: string]: string;
 }
