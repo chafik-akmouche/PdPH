@@ -10,9 +10,13 @@ import { SelectSolution } from '../services/selectSolution.service';
 export class ConfigurationComponent {
 
   file_entree : string;
+  nombre_semaine : number;
+  contraintes_ignores : string[];
 
   constructor(private selectSolution : SelectSolution) {
     this.file_entree = "";
+    this.nombre_semaine = 0;
+    this.contraintes_ignores = [];
   }
 
   checkFile(file : string) {
@@ -29,6 +33,9 @@ export class ConfigurationComponent {
        },5000
      );
     }
+
+    //envoie du nombre de semaine a la page de visualisation
+    console.log("Nombre semaine configuration : " + form.value["inputSemaine"]);
     
   }
 

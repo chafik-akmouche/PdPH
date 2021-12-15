@@ -11,10 +11,20 @@
                                                                            'padding' : (liste_jour[i] == ' ') ? '1px' : '0px'} ">{{liste_jour[i]}}</td>
         </tr>
 
-        <tr *ngFor="let creneaux_agent of creneaux_agents_affiche">
+        <tr *ngFor="let creneaux_agent of creneaux_agents_affiche
+                   ">
             <td>{{creneaux_agent.contrat}}</td>
-            <td>{{creneaux_agent.agent}}</td>
-            <td class="text-center" *ngFor="let p of creneaux_agent.postes, let j = index"  [ngStyle] = "{ 'background-color' : (creneaux_agent.postes[j] == ' ' && nombreSemaineSelect > 1) ? '#5bc0de' : 'white'}">{{creneaux_agent.postes[j]}}</td>
+            <td [ngStyle]="{ 'background-color': creneaux_agent.color}" >{{creneaux_agent.agent}}</td>
+            <td class="text-center" 
+            *ngFor="let p of creneaux_agent.postes
+                    let j = index"  [ngStyle] = "{ 'background-color' : (creneaux_agent.postes[j] == ' ' && nombreSemaineSelect > 1) ? '#5bc0de' : 'white'}">
+                    {{creneaux_agent.postes[j]}}</td>
         </tr>
     </table>
+    
 </div>
+
+<!--| paginate : { itemsPerPage : 3, 
+    currentPage : page, 
+    totalItems : totalLength 
+  } -->

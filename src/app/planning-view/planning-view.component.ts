@@ -17,10 +17,15 @@ export class PlanningViewComponent implements OnInit {
   nombreSemaineSelect : number = 1;
   typeAffichageSelect : string = "tout";
   liste_jour: string[];
+  postes : string[]; //répresente la liste de poste a afficher sur chaque page
+
+
+  //variables pour la pagination
 
   constructor(private planningService : PlanningService){
     planningService.creneaux_Aff.subscribe(creneaux => this.onCreneauAdded(creneaux));
     this.liste_jour = [];
+    this.postes = [];
   }
  
   ngOnInit(): void {
@@ -34,6 +39,8 @@ export class PlanningViewComponent implements OnInit {
     this.incriptionChangementListeTypeContrat();
 
     this.inscriptionChangementListeAgent();
+
+
   }
 
   /**** les methodes d'inscriptions aux changements des filtres ****/
@@ -41,8 +48,8 @@ export class PlanningViewComponent implements OnInit {
   
   private inscriptionChangementListeSemaine(){
     this.planningService.listeNombreS.subscribe(n => {
-      this.nombreSemaineSelect = n;
-      this.generateListeDate(this.nombreSemaineSelect);
+        this.nombreSemaineSelect = n;
+        this.generateListeDate(this.nombreSemaineSelect);
     })
   }
 
@@ -99,10 +106,11 @@ export class PlanningViewComponent implements OnInit {
     )
   }
 
-  private onCreneauAdded( creneau : Creneau[]){
+  private onCreneauAdded( creneau : Creneau[]){ //cette fonction récupére a chaque fois le nouveau tableau de créneau a afficher                                             //selon les filtres appliqués
     this.creneaux_agents_affiche = creneau;
   }
 
+  //cette methode doit 
   generateListeDate(nombre : number){
     let jours = ["lun","mar","mer","jeu","vend","sam","dim"];
     this.liste_jour = [];
@@ -114,5 +122,9 @@ export class PlanningViewComponent implements OnInit {
       else
           this.liste_jour = this.liste_jour.concat(jours);
     }
+  }
+
+  onChangePage($event : any){
+
   }
 }

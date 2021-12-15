@@ -1,18 +1,87 @@
-<br /> <br />
-<h2 class="text-muted"> Page de configuration </h2>
-<br />
+<div class="mt-5">
+  <h2 class="text-muted text-center"> Page de configuration </h2>
+</div>
 
-<form class="form" (ngSubmit)="lancerSolveur(f)" #f="ngForm">
-  <div class="input-group mb-3">
-    <label class="input-group-text" for="inputFile"> Charger un fichier de configuration </label>
-    <input type="file" class="form-control" name ="inputFile" id="inputFile" accept=".txt" ngModel>
+<form class="form row g-3 mt-5" (ngSubmit)="lancerSolveur(f)" #f="ngForm">
+  <div class="row form-group mb-3 col-12 border p-3">
+    <label for="inputSemaine" class="col-lg-3 col-form-label">Nombre de semaines de cycle</label>
+    <div class="col-lg-1">
+      <input type="number" class="form-control" id="inputSemaine" min="1" max="12" name="inputSemaine" ngModel>
+    </div>
   </div>
-  <div>
-    <button type="submit" class="btn btn-info btn-md btn-block"> Lancer le solveur </button>
+
+  <div class="row mt-3 border p-3">
+    
+    <p class="display-6">Personnalisation des contraintes</p>
+
+    <div class="form-group col-md-6">
+        <input type="checkbox" class="form-check-input" name="un_seul_poste_par_jour_agent"> Un seul poste de travail chaque jour par agent
+    </div>
+
+    <div class="row form-group mb-2 col-md-6">
+      <label for="temps_min_repos_jour" class="col-lg-8 col-form-label">Temps minimal de repos journalier</label>
+      <div class="col-lg-2">
+        <input type="number" class="form-control" id="temps_min_repos_jour" min="1" max="12" name="temps_min_repos_jour" ngModel>
+      </div>
+    </div>
+
+    <div class="form-group col-md-6">
+      <input type="checkbox" class="form-check-input" name="couverture_postes"> Couverture de tous les postes
+    </div>
+
+    <div class="row form-group mb-2 col-md-6">
+      <label for="temps_min_repos_hebd" class="col-md-8 col-form-label">Temps minimal de repos hebdomadaire</label>
+      <div class="col-md-2">
+        <input type="number" class="form-control" id="temps_min_repos_hebd" min="1" max="12" name="temps_min_repos_hebd" ngModel>
+      </div>
+    </div>
+
+    <div class="form-group col-md-6">
+      <input type="checkbox" class="form-check-input" name="respect_nbheure_contrat"> Respect du nombre d’heures de chaque contrat
+    </div>
+
+    <div class="form-group row col-md-6 mb-2">
+      <label for="nb_max_heure_travail_hebdo" class="col-lg-8 col-form-label">Nombre maximal d’heures de travail hebdomadaire</label>
+      <div class="col-lg-2">
+        <input type="number" class="form-control" id="nb_max_heure_travail_hebdo" min="1" max="12" name="nb_max_heure_travail_hebdo" ngModel>
+      </div>
+    </div>
+
+    <div class="row form-group mb-2  col-md-6">
+      <label for="nb_max_dim_travail_agent" class="col-md-9 col-form-label">Nombre maximal de dimanches travaillés par chaque agent</label>
+      <div class="col-md-2">
+        <input type="number" class="form-control" id="nb_max_dim_travail_agent" min="1" max="12" name="nb_max_dim_travail_agent" ngModel>
+      </div>
+    </div>
+
+    <div class="row form-group m-2 mb-2 col-md-6">
+      <label for="nb_min_jours_repos_quinze" class="col-md-8 col-form-label">Nombre minimal de jours de repos par quinzaine</label>
+      <div class="col-md-2">
+        <input type="number" class="form-control" id="nb_min_jours_repos_quinze" min="1" max="12" name="nb_min_jours_repos_quinze" ngModel>
+      </div>
+    </div>
+
+    <div class="row form-group mb-2 col-md-6">
+      <label for="nb_max_heure_travail_semaine" class="col-md-9 col-form-label">Nombre maximal d’heures de travail sur 7 jours glissants</label>
+      <div class="col-md-2">
+        <input type="number" class="form-control" id="nb_max_heure_travail_semaine" min="1" max="12" name="nb_max_heure_travail_semaine" ngModel>
+      </div>
+    </div>
+  </div>  
+
+  <div class="row mt-3 border p-3">
+    <p class="display-6">Lancement du solveur</p>
+    <div class="input-group mb-2">
+      <label class="input-group-text" for="inputFile"> Charger un fichier de configuration </label>
+      <input type="file" class="form-control" name ="inputFile" id="inputFile" accept=".txt" ngModel>
+    </div>
+    <div class="mb-2">
+      <button type="submit" class="btn btn-info btn-md btn-block"> Lancer le solveur </button>
+    </div>
   </div>
 </form>
 
-<br /> <br />
+
 
 <div class="nav">
   <li routerLinkActive="active"><a routerLink="/" class="nav-item nav-link"> Voir les plannings </a></li>
@@ -21,3 +90,4 @@
 <div class="row mt-5">
   <!--<p *ngIf = "solutionStatus == true">{{solutionStatus}}</p> -->
 </div>
+
