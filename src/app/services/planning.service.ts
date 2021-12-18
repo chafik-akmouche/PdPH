@@ -21,7 +21,7 @@ export class PlanningService{
     public listeAgent : BehaviorSubject<string>;
     public creneaux : Creneau[] = [];
     public creneaux_triee : Creneau[];
-    //public contratsColors : MyType;
+
     constructor(private csvReader : CsvReader){
         this.creneaux_Aff = new EventEmitter();
 
@@ -30,43 +30,8 @@ export class PlanningService{
         this.listeTypeAff = new BehaviorSubject(this.typeAffichageSelect);
         this.listeTypeContrat = new BehaviorSubject(this.typeContratSelect);
         this.listeAgent = new BehaviorSubject(this.agentSelect);
-        this.creneaux = this.csvReader.getCsvContent(this.fichierSelect);
         this.creneaux_triee = this.creneaux;
     }
-
-    /*creneaux = [
-        {
-            contrat : '100%',
-            agent : 'Agent 1',
-            postes : ['M1','J1','S1','J1','M1','.','.','S1','J1','J1','S1','S1','.','.','J1','S1','J1','J1','J1','.','.','M1','M1','M1','Jca 1-2','J1','.','.','M1','M1','M1','M1','M1','.','.','S1','J1','J1','Jca 0-1','M1','.','.','J1','J1','J1','J1','S1','.','J1','M1','M1','M1','J1','.','.','M1','M1','M1','M1','J1','.','.']
-        },
-        {
-            contrat : '100%',
-            agent : 'Agent 2',
-            postes : ['M1','J1','S1','J1','M1','.','.','S1','J1','J1','S1','S1','.','.','J1','S1','J1','J1','J1','.','.','M1','M1','M1','Jca 1-2','J1','.','.','M1','M1','M1','M1','M1','.','.','S1','J1','J1','Jca 0-1','M1','.','.','J1','J1','J1','J1','S1','.','J1','M1','M1','M1','J1','.','.','M1','M1','M1','M1','J1','.','.']
-        },
-        {
-            contrat : '100%',
-            agent : 'Agent 3',
-            postes : ['M1','J1','S1','J1','M1','.','.','S1','J1','J1','S1','S1','.','.','J1','S1','J1','J1','J1','.','.','M1','M1','M1','Jca 1-2','J1','.','.','M1','M1','M1','M1','M1','.','.','S1','J1','J1','Jca 0-1','M1','.','.','J1','J1','J1','J1','S1','.','J1','M1','M1','M1','J1','.','.','M1','M1','M1','M1','J1','.','.']
-        },
-        {
-            contrat : '90%',
-            agent : 'Agent 1',
-            postes : ['M1','J1','S1','J1','M1','.','.','S1','J1','J1','S1','S1','.','.','J1','S1','J1','J1','J1','.','.','M1','M1','M1','Jca 1-2','J1','.','.','M1','M1','M1','M1','M1','.','.','S1','J1','J1','Jca 0-1','M1','.','.','J1','J1','J1','J1','S1','.','J1','M1','M1','M1','J1','.','.','M1','M1','M1','M1','J1','.','.']
-        },
-        {
-            contrat : '90%',
-            agent : 'Agent 2',
-            postes : ['M1','J1','S1','J1','M1','.','.','S1','J1','J1','S1','S1','.','.','J1','S1','J1','J1','J1','.','.','M1','M1','M1','Jca 1-2','J1','.','.','M1','M1','M1','M1','M1','.','.','S1','J1','J1','Jca 0-1','M1','.','.','J1','J1','J1','J1','S1','.','J1','M1','M1','M1','J1','.','.','M1','M1','M1','M1','J1','.','.']
-        },
-        {
-            contrat : '80%',
-            agent : 'Agent 3',
-            postes : ['M1','J1','S1','J1','M1','.','.','S1','J1','J1','S1','S1','.','.','J1','S1','J1','J1','J1','.','.','M1','M1','M1','Jca 1-2','J1','.','.','M1','M1','M1','M1','M1','.','.','S1','J1','J1','Jca 0-1','M1','.','.','J1','J1','J1','J1','S1','.','J1','M1','M1','M1','J1','.','.','M1','M1','M1','M1','J1','.','.']
-        }
-    ]*/
-
     
     setCreneauxAffichable(nombre : number, type_trie : string , creneaux : Creneau[]){
         let cpt = 7;

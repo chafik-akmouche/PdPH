@@ -3,12 +3,6 @@
 </div>
 
 <form class="form row g-3 mt-5"  (ngSubmit)="lancerSolveur(f)"  #f="ngForm">
-  <div class="row form-group mb-3 col-12 border p-3">
-    <label for="inputSemaine" class="col-lg-3 col-form-label">Nombre de semaines de cycle</label>
-    <div class="col-lg-1">
-      <input type="number" class="form-control" id="inputSemaine" min="1" max="12" name="nb_semaines"  [ngModel] = "nb_semaines" required>
-    </div>
-  </div>
 
   <div class="row mt-3 border p-3">
     
@@ -18,15 +12,31 @@
         <input type="checkbox" class="form-check-input" name="contrainte2" [ngModel] = "Contrainte2" required> Un seul poste de travail chaque jour par agent
     </div>
 
+    <div class="form-group col-md-6">
+      <input type="checkbox" class="form-check-input" name="couverture_postes" [ngModel] = "true" required> Couverture de tous les postes
+    </div>
+
+    <div class="form-group col-md-6">
+      <input type="checkbox" class="form-check-input" name="respect_nbheure_contrat" [ngModel] = "true" required> Respect du nombre d’heures de chaque contrat
+    </div>
+    
+  </div> 
+
+  <div class="row mt-3 border p-3">
+    <p class="display-6">Personnalisation des données d'entrée</p>
+
+    <div class="row form-group mb-2 col-md-6">
+      <label for="inputSemaine" class="col-lg-8 col-form-label">Nombre de semaines de cycle</label>
+      <div class="col-lg-2">
+        <input type="number" class="form-control" id="inputSemaine" min="1" max="12" name="nb_semaines"  [ngModel] = "nb_semaines" required>
+      </div>
+    </div>
+
     <div class="row form-group mb-2 col-md-6"> 
       <label for="temps_min_repos_jour" class="col-lg-8 col-form-label">Temps minimal de repos journalier</label>
       <div class="col-lg-2">
         <input type="number" class="form-control" id="temps_min_repos_jour" name="OffD" [ngModel] = "OffD" required>
       </div>
-    </div>
-
-    <div class="form-group col-md-6">
-      <input type="checkbox" class="form-check-input" name="couverture_postes" [ngModel] = "true" required> Couverture de tous les postes
     </div>
 
     <div class="row form-group mb-2 col-md-6">
@@ -36,10 +46,6 @@
       </div>
     </div>
 
-    <div class="form-group col-md-6">
-      <input type="checkbox" class="form-check-input" name="respect_nbheure_contrat" [ngModel] = "true" required> Respect du nombre d’heures de chaque contrat
-    </div>
-
     <div class="form-group row col-md-6 mb-2">
       <label for="nb_max_heure_travail_hebdo" class="col-lg-8 col-form-label">Nombre maximal d’heures de travail hebdomadaire</label>
       <div class="col-lg-2">
@@ -47,25 +53,16 @@
       </div>
     </div>
 
-    
     <div class="row form-group mb-2 col-md-6">
-      <label for="nb_max_heure_travail_semaine" class="col-md-9 col-form-label">Nombre maximal d’heures de travail sur 7 jours glissants</label>
+      <label for="nb_max_heure_travail_semaine" class="col-md-8 col-form-label">Nombre maximal d’heures de travail sur 7 jours glissants</label>
       <div class="col-md-2">
         <input type="number" class="form-control" id="nb_max_heure_travail_semaine" name="hg_max" [ngModel] = "hg_max" required>
       </div>
     </div>
 
-    <div class="row form-group mb-2 m-2 col-md-6">
-      <label for="nb_min_jours_repos_quinze" class="col-md-8 col-form-label">Nombre minimal de jours de repos par quinzaine</label>
-      <div class="col-md-2">
-        <input type="number" class="form-control" id="nb_min_jours_repos_quinze" name="nb_min_jours_repos_quinze" ngModel>
-      </div>
-    </div>
-
-
     <div class="border p-3">
 
-      <p class="display-6">Contraintes Liées aux contrats</p>
+      <p class="display-6">Données liées aux contrats</p>
 
       <div class="row form-group mb-2  col-md-6">
         <label for="nombre_contrats" class="col-md-4 col-form-label">Nombre de contrats</label>
@@ -89,8 +86,8 @@
       </div>
 
     </div>
-    
-  </div> 
+
+  </div>
    
 
   <div class="row mt-3 border p-3">
