@@ -17,6 +17,7 @@ import { ConfigurationComponent } from './configuration/configuration.component'
 import { RouterModule, Routes } from '@angular/router';
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
 import { SelectSolution } from './services/selectSolution.service';
+import { CallSolver } from './services/solverCall.service';
 
 //le module de pagination
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -50,7 +51,8 @@ const appRoutes : Routes = [
   providers: [
     PlanningService,
     CsvReader,
-    SelectSolution
+    SelectSolution,
+    CallSolver
   ],
   bootstrap: [AppComponent]
 })
