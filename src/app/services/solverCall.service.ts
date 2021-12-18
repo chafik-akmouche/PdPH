@@ -25,7 +25,9 @@ export class CallSolver{
         this.httpClient.post("http://localhost:8080/callsolveur", object_solver)
             .subscribe(
                 (res) => {
-                    console.log(res);
+                    if(res){
+                        //envoie des solutions dans le répertoire cible 
+                    }
                 },
                 (error) => {
                     console.log("Erreur retourner par le back " + error);

@@ -71,7 +71,7 @@ export class ConfigurationComponent {
       this.Contrainte1 = true;
     }
 
-    //Appelle a la méthode du service qui va envoyer les informations au back
+    //Appel à la méthode du service qui va envoyer les informations au back
     this.CallSolver.sendDataToSolver(this.nb_semaines,this.input_file,this.output_directory,this.h_max,this.hg_max,this.OffD,this.RepH,this.Contrainte1,this.Contrainte2);
   }
 
