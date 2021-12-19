@@ -36,7 +36,7 @@ export class ConfigurationComponent {
     this.RepH=36;
     this.Contrainte2 = true;
     this.Contrainte1 = true;
-    this.output_directory = "C:\\Users\\diakh\\Downloads\\output";
+    this.output_directory = "";
     this.Ratio_base = [1,0.9,0.8,0.75,0.7,0.6,0.5];
     this.Ratio_dim_base = [1,1,1,0.75,0.75,0.6,0.6];
   }
