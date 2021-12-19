@@ -5,12 +5,12 @@ import { Injectable } from "@angular/core";
 export class CallSolver{
     constructor(private httpClient : HttpClient){}
 
-    public sendDataToSolver(nb_semaine:number,tab_data_input : string[],output_directory:string,hmax:number,hg_max:number,
+    public sendDataToSolver(nb_semaine:number,data_input : string,output_directory:string,hmax:number,hg_max:number,
                             OffD:number,Reph:number,contrainte1 : boolean,contrainte2:boolean){
         
         const object_solver = {
             "nb_semaine" : nb_semaine,
-            "input_file" : tab_data_input,
+            "input_file" : data_input,
             "output_directory": output_directory,
             "hmax": hmax,
             "hg_max":hg_max,
@@ -20,7 +20,7 @@ export class CallSolver{
             "contrainte2":contrainte2
         };
 
-        console.log(tab_data_input);
+        console.log(data_input);
 
         /*this.httpClient.post("http://localhost:8080/callsolveur", object_solver)
             .subscribe(
