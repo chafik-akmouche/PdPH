@@ -95,7 +95,7 @@
     
     <div class="input-group mb-2">
       <label class="input-group-text" for="inputFile"> Charger le fichier d'entrée au solveur</label>
-      <input type="file" class="form-control" name ="inputFile" id="inputFile" accept=".txt" ngModel required>
+      <input type="file" class="form-control" name ="inputFile" id="inputFile" accept=".txt" ngModel required (change)="onFileChanged($event)">
     </div>
 
     <div class="mb-2">
@@ -103,8 +103,6 @@
     </div>
   </div>
 </form>
-
-
 
 <div class="nav">
   <li routerLinkActive="active"><a routerLink="/" class="nav-item nav-link"> Voir les plannings </a></li>
@@ -114,6 +112,3 @@
   <!--<p *ngIf = "solutionStatus == true">{{solutionStatus}}</p> -->
 </div>
 
-<script>
-
-</script>

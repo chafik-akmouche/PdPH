@@ -12,7 +12,8 @@ export class ConfigurationComponent {
   nombre_contrats : number;  //le nombre de contrat
 
   //variables a envoyer pour le lancement du solveur
-  input_file : string;
+  file : any; //contiendra le fichier selectionner au lancement du solveur
+  tab_data : string[] = []; //l'ensemble des lignes contenu dans le fichier d'entrée
   output_directory:string;
   nb_semaines : number;
   Ratio_base : number[]; //la liste des contrats
@@ -24,8 +25,9 @@ export class ConfigurationComponent {
   Contrainte1 : boolean; // respect des besoins
   Contrainte2: boolean; //Un poste par jour
 
+
+
   constructor(private selectSolution : SelectSolution, private CallSolver: CallSolver) {
-    this.input_file = "";
     this.nb_semaines = 2;
     this.nombre_contrats = 7;
     this.h_max = 45; 
@@ -56,23 +58,31 @@ export class ConfigurationComponent {
     }
   }
 
+  public onFileChanged($event:any){
+    this.file = $event.target.files[0];
+  }
+
 
   lancerSolveur(form: NgForm) {
+    let fileReader = new FileReader();
+    let str : any = "";
+    let tab_val : string[] = [];
+
+
     this.nb_semaines =  form.value["nb_semaines"];
     this.h_max = form.value["h_max"];
     this.hg_max = form.value["hg_max"];
     this.OffD = form.value["OffD"];
     this.Contrainte2 = form.value["contrainte2"];
-    if(this.checkFile(form.value["inputFile"])){
-      this.input_file = form.value["inputFile"];
+
+    fileReader.onload = (e) => {
+      str = fileReader.result?.toString().trim();
+      tab_val = str.split("\n")
+      //Appel à la méthode du service qui va envoyer les informations au back
+      this.CallSolver.sendDataToSolver(this.nb_semaines,tab_val,this.output_directory,this.h_max,this.hg_max,this.OffD,this.RepH,this.Contrainte1,this.Contrainte2);
     }
 
-    if(form.value["respect_nbheure_contrat"] && form.value["couverture_postes"]){
-      this.Contrainte1 = true;
-    }
-
-    //Appel à la méthode du service qui va envoyer les informations au back
-    this.CallSolver.sendDataToSolver(this.nb_semaines,this.input_file,this.output_directory,this.h_max,this.hg_max,this.OffD,this.RepH,this.Contrainte1,this.Contrainte2);
+    fileReader.readAsText(this.file);
   }
 
 }
