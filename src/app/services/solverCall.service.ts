@@ -7,7 +7,7 @@ export class CallSolver{
 
     public sendDataToSolver(nb_semaine:number,data_input : string,output_directory:string,hmax:number,hg_max:number,
                             OffD:number,Reph:number,contrainte1 : boolean,contrainte2:boolean){
-        
+
         const object_solver = {
             "nb_semaine" : nb_semaine,
             "input_file" : data_input,
@@ -20,18 +20,18 @@ export class CallSolver{
             "contrainte2":contrainte2
         };
 
-        console.log(data_input);
 
-        /*this.httpClient.post("http://localhost:8080/callsolveur", object_solver)
+
+        this.httpClient.post("http://localhost:8080/callsolveur", object_solver)
             .subscribe(
                 (res) => {
                     if(res){
-                        //envoie des solutions dans le répertoire cible 
+                        //envoie des solutions dans le répertoire cible
                     }
                 },
                 (error) => {
                     console.log("Erreur retourner par le back " + error);
                 }
-            );*/
+        );
     }
 }
