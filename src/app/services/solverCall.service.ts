@@ -5,13 +5,12 @@ import { Injectable } from "@angular/core";
 export class CallSolver{
     constructor(private httpClient : HttpClient){}
 
-    public sendDataToSolver(nb_semaine:number,data_input : string,output_directory:string,hmax:number,hg_max:number,
+    public sendDataToSolver(nb_semaine:number,data_input : string,hmax:number,hg_max:number,
                             OffD:number,Reph:number,contrainte1 : boolean,contrainte2:boolean){
 
         const object_solver = {
             "nb_semaine" : nb_semaine,
             "input_file" : data_input,
-            "output_directory": output_directory,
             "hmax": hmax,
             "hg_max":hg_max,
             "offd":OffD,
@@ -26,7 +25,7 @@ export class CallSolver{
             .subscribe(
                 (res) => {
                     if(res){
-                        //envoie des solutions dans le répertoire cible
+                        console.log(res);
                     }
                 },
                 (error) => {

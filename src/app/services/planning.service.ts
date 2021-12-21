@@ -67,8 +67,6 @@ export class PlanningService{
            cpt = 7;
            i = 0;
         }
-        
-        console.log(tab_creneau)
         this.creneaux_Aff.emit(tab_creneau);
        
     }

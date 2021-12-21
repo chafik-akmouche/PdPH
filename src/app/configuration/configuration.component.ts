@@ -14,7 +14,6 @@ export class ConfigurationComponent {
   //variables a envoyer pour le lancement du solveur
   file : any; //contiendra le fichier selectionner au lancement du solveur
   tab_data : string[] = []; //l'ensemble des lignes contenu dans le fichier d'entrée
-  output_directory:string;
   nb_semaines : number;
   Ratio_base : number[]; //la liste des contrats
   Ratio_dim_base: number[];  //la liste de pourcentages des dimanches travaillés 
@@ -36,7 +35,6 @@ export class ConfigurationComponent {
     this.RepH=36;
     this.Contrainte2 = true;
     this.Contrainte1 = true;
-    this.output_directory = "";
     this.Ratio_base = [1,0.9,0.8,0.75,0.7,0.6,0.5];
     this.Ratio_dim_base = [1,1,1,0.75,0.75,0.6,0.6];
   }
@@ -65,7 +63,7 @@ export class ConfigurationComponent {
 
   lancerSolveur(form: NgForm) {
     let fileReader = new FileReader();
-    let str : any = "";
+    let str : any = ""; //contient le contenu du fichier d'entrée en string
     let tab_val : string[] = [];
 
 
@@ -78,7 +76,7 @@ export class ConfigurationComponent {
     fileReader.onload = (e) => {
       str = fileReader.result?.toString().trim();
       //Appel à la méthode du service qui va envoyer les informations au back
-      this.CallSolver.sendDataToSolver(this.nb_semaines,str,this.output_directory,this.h_max,this.hg_max,this.OffD,this.RepH,this.Contrainte1,this.Contrainte2);
+      this.CallSolver.sendDataToSolver(this.nb_semaines,str,this.h_max,this.hg_max,this.OffD,this.RepH,this.Contrainte1,this.Contrainte2);
     }
 
     fileReader.readAsText(this.file);
