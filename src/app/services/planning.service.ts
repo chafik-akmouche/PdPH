@@ -8,14 +8,14 @@ import { CsvReader } from "./csvReader.service";
 export class PlanningService{
 
     private nombreSemaineSelect : number = 1;
-    private fichierSelect : string = 'assets/solutions/fichier-1.csv';
+    private fichierSelect : string = '';
     private typeAffichageSelect : string = 'tout';
     private typeContratSelect : string = "tout";
     private agentSelect : string = "";
     private nw : number = 9; //nombre de semaine lu a partir des données de configuration
     public creneaux_Aff : EventEmitter<Creneau[]>;
     public listeNombreS : BehaviorSubject<number>;
-    public listePath : BehaviorSubject<string>;
+    public listeSolution : BehaviorSubject<string>;
     public listeTypeAff : BehaviorSubject<string>;
     public listeTypeContrat : BehaviorSubject<string>;
     public listeAgent : BehaviorSubject<string>;
@@ -26,7 +26,7 @@ export class PlanningService{
         this.creneaux_Aff = new EventEmitter();
 
         this.listeNombreS = new BehaviorSubject(this.nombreSemaineSelect);
-        this.listePath = new BehaviorSubject(this.fichierSelect); 
+        this.listeSolution = new BehaviorSubject(this.fichierSelect); 
         this.listeTypeAff = new BehaviorSubject(this.typeAffichageSelect);
         this.listeTypeContrat = new BehaviorSubject(this.typeContratSelect);
         this.listeAgent = new BehaviorSubject(this.agentSelect);
@@ -197,10 +197,10 @@ export class PlanningService{
         this.setCreneauxAffichable(this.nombreSemaineSelect,this.typeAffichageSelect,this.creneaux_triee);
     }
 
-    onSolutionSelectChange(file_path:string){
-        this.fichierSelect = file_path;
+    onSolutionSelectChange(file_name:string){
+        this.fichierSelect = file_name;
         this.creneaux_triee = this.creneaux;
-        this.listePath.next(this.fichierSelect);
+        this.listeSolution.next(this.fichierSelect);
     }
 
     onSelectAfficherParChange(type : string){

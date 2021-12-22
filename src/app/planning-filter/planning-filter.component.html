@@ -1,8 +1,8 @@
 <div class="class row mt-5 ">
     <div class="col-lg">
         <select class="form-select" aria-label="Default select example"  (change) = "onSolutionSelectChange($event)">
-            <option *ngFor = "let solution of listeSolutions, let k = index" [selected] = "k == 0" 
-                    [value] ="solution.path">{{solution.nom}}</option>
+            <option *ngFor = "let solutionName of listeSolutionsNames, let k = index" [selected] = "k == 0" 
+                    [value] ="solutionName">{{solutionName}}</option>
         </select>     
     </div>
 

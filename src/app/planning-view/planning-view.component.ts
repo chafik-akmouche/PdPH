@@ -1,6 +1,7 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, Injectable, Input, OnInit } from '@angular/core';
 import { CsvReader } from '../services/csvReader.service';
 import { Creneau, PlanningService } from '../services/planning.service';
+import { CallSolver } from '../services/solverCall.service';
 
 @Component({
   selector: 'app-planning-view',
@@ -13,23 +14,27 @@ export class PlanningViewComponent implements OnInit {
   isAuth = false;
   
   nw : number = 9;
-  public creneaux_agents_affiche !: Creneau[]; //les creneaux a afficher selon la semaine selectionnée
+  public creneaux_agents_affiche !: Creneau[];
   nombreSemaineSelect : number = 1;
   typeAffichageSelect : string = "tout";
   liste_jour: string[];
   postes : string[]; //répresente la liste de poste a afficher sur chaque page
 
+  @Input() solutionSelect : string = "Cycle_Obj1.xlsx"; //solution recuperer à partir du filtre
 
   //variables pour la pagination
 
-  constructor(private planningService : PlanningService){
+  constructor(private planningService : PlanningService, private solveurCaller : CallSolver){
     planningService.creneaux_Aff.subscribe(creneaux => this.onCreneauAdded(creneaux));
     this.liste_jour = [];
     this.postes = [];
   }
  
   ngOnInit(): void {
-    
+    this.solveurCaller.getDefaultSolutionsName(); // récuperation de la liste des noms des derniers solutions obtenus
+
+    this.subscribeChargementListeSolution(); //souscription du component au chargement de la liste des solutions à partir du back
+
     this.inscriptionChangementListeSemaine();
 
     this.inscriptionChangementListeSolution();
@@ -40,12 +45,11 @@ export class PlanningViewComponent implements OnInit {
 
     this.inscriptionChangementListeAgent();
 
-
+    this.subscribeListCreneauChange();
   }
 
   /**** les methodes d'inscriptions aux changements des filtres ****/
 
-  
   private inscriptionChangementListeSemaine(){
     this.planningService.listeNombreS.subscribe(n => {
         this.nombreSemaineSelect = n;
@@ -53,20 +57,32 @@ export class PlanningViewComponent implements OnInit {
     })
   }
 
+  private subscribeChargementListeSolution(){
+    this.solveurCaller.solutions_list.subscribe(solutions_noms => {
+      //appelle recupération de la solution avec l'elément selectionné par defaut
+      if(solutions_noms){
+        this.solveurCaller.getSolutionContent(solutions_noms.split(",")[0]);
+      }
+    })
+  }
+
   private inscriptionChangementListeSolution(){
-    this.planningService.listePath.subscribe(path => {
+    this.planningService.listeSolution.subscribe(name => {
       let creneaux : Creneau[] = [];
 
-      creneaux = this.planningService.getFileContent(path)
-      
-      setTimeout(
-        ()=>{
-          this.planningService.creneaux = creneaux;
-          this.planningService.creneaux_triee = creneaux;
-          this.planningService.setCreneauxAffichable(this.nombreSemaineSelect,this.typeAffichageSelect,this.planningService.creneaux);
-        }, 1000
-      ) 
+      //creneaux = this.planningService.getFileContent(name)
+
+      //Appelle au back pour la recupération du contenu du nom du fichier solution selectionné 
+            
+      this.solveurCaller.getSolutionContent(name);
      
+    })
+  }
+
+  private subscribeListCreneauChange(){
+    this.solveurCaller.creneaux_list.subscribe(creneaux => {
+      this.planningService.creneaux_triee = creneaux;
+      this.planningService.setCreneauxAffichable(this.nombreSemaineSelect,this.typeAffichageSelect,this.planningService.creneaux_triee);
     })
   }
 

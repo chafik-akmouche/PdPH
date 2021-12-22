@@ -24,9 +24,9 @@ export class ConfigurationComponent {
   Contrainte1 : boolean; // respect des besoins
   Contrainte2: boolean; //Un poste par jour
 
+  list_solutions : string[];
 
-
-  constructor(private selectSolution : SelectSolution, private CallSolver: CallSolver) {
+  constructor(private CallSolver: CallSolver) {
     this.nb_semaines = 2;
     this.nombre_contrats = 7;
     this.h_max = 45; 
@@ -37,7 +37,9 @@ export class ConfigurationComponent {
     this.Contrainte1 = true;
     this.Ratio_base = [1,0.9,0.8,0.75,0.7,0.6,0.5];
     this.Ratio_dim_base = [1,1,1,0.75,0.75,0.6,0.6];
+    this.list_solutions = [];
   }
+
 
   checkFile(file : string) {
     return (file.endsWith(".txt"));
@@ -75,6 +77,7 @@ export class ConfigurationComponent {
 
     fileReader.onload = (e) => {
       str = fileReader.result?.toString().trim();
+
       //Appel à la méthode du service qui va envoyer les informations au back
       this.CallSolver.sendDataToSolver(this.nb_semaines,str,this.h_max,this.hg_max,this.OffD,this.RepH,this.Contrainte1,this.Contrainte2);
     }

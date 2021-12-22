@@ -2,7 +2,8 @@ import { Component, OnInit , Input, ViewChild, ElementRef, AfterViewInit, Render
 import { NgModel } from '@angular/forms';
 import { CsvReader } from '../services/csvReader.service';
 import { PlanningService } from '../services/planning.service';
-import { SelectSolution, Solution } from '../services/selectSolution.service';
+import { SelectSolution } from '../services/selectSolution.service';
+import { CallSolver } from '../services/solverCall.service';
 
 
 @Component({
@@ -18,26 +19,34 @@ export class PlanningFilterComponent implements OnInit {
   isbtnJour = false;
 
   @Input() nombreSemaine : number;
+
   listeSemaines : Array<number>;
   nombreSemaineSelect: any;
-  listeSolutions : Solution[] ;
+  listeSolutionsNames : string[] ;
   listeContrats : string[];
 
-  @ViewChild('content')
-  content!: ElementRef;
+  constructor(private planningService : PlanningService,
+              private selectSolution : SelectSolution, 
+              private CallSolver: CallSolver) {
 
-  constructor(private planningService : PlanningService, private renderer: Renderer2,
-              private selectSolution : SelectSolution, private csvReader : CsvReader) {
     this.nombreSemaine = 0;
     this.listeSemaines = [];
-    this.listeSolutions = [];
+    this.listeSolutionsNames = [];
     this.listeContrats = [];
   }
 
   ngOnInit(): void {
     this.listeSemaines = this.generateListeSemaines();
-    this.getListSolution();
+    this.subscribeListSolutionChargement();
   }
+
+ // fonction d'inscription au changement de reception d'une nouvelle liste des solutions après lancement solveur
+ private subscribeListSolutionChargement(){
+  this.CallSolver.solutions_list.subscribe(Solution =>{
+    this.listeSolutionsNames = Solution.split(",");
+    this.selectSolution.setSolution(this.listeSolutionsNames);
+  })
+}
 
   generateListeSemaines(){
     let liste_nombre_semaine : Array<number> = [];
@@ -94,11 +103,6 @@ export class PlanningFilterComponent implements OnInit {
   onSelectJourChange($event : any){
 
   }
- 
-  getListSolution(){ 
-    for(let solution of this.selectSolution.getSolutions()){
-      this.listeSolutions.push(solution);
-    }
-  }
+
 }
 
