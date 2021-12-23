@@ -9,7 +9,7 @@ export class PlanningService{
 
     private nombreSemaineSelect : number = 1;
     private fichierSelect : string = '';
-    private typeAffichageSelect : string = 'tout';
+    public typeAffichageSelect : string = 'tout';
     private typeContratSelect : string = "tout";
     private agentSelect : string = "";
     private nw : number = 9; //nombre de semaine lu a partir des données de configuration
@@ -67,6 +67,7 @@ export class PlanningService{
            cpt = 7;
            i = 0;
         }
+        
         this.creneaux_Aff.emit(tab_creneau);
        
     }

@@ -63,6 +63,8 @@ export class PlanningViewComponent implements OnInit {
       if(solutions_noms){
         this.solveurCaller.getSolutionContent(solutions_noms.split(",")[0]);
       }
+      else
+        console.log("null");
     })
   }
 
@@ -75,14 +77,22 @@ export class PlanningViewComponent implements OnInit {
       //Appelle au back pour la recupération du contenu du nom du fichier solution selectionné 
             
       this.solveurCaller.getSolutionContent(name);
+
+      /*setTimeout(
+        ()=>{
+          this.planningService.creneaux = creneaux;
+          this.planningService.creneaux_triee = creneaux;
+          this.planningService.setCreneauxAffichable(this.nombreSemaineSelect,this.typeAffichageSelect,this.planningService.creneaux);
+        }, 1000
+      ) */
      
     })
   }
 
   private subscribeListCreneauChange(){
     this.solveurCaller.creneaux_list.subscribe(creneaux => {
-      this.planningService.creneaux_triee = creneaux;
-      this.planningService.setCreneauxAffichable(this.nombreSemaineSelect,this.typeAffichageSelect,this.planningService.creneaux_triee);
+        this.planningService.creneaux = creneaux;
+        this.planningService.setCreneauxAffichable(this.nombreSemaineSelect,this.planningService.typeAffichageSelect,creneaux);
     })
   }
 
