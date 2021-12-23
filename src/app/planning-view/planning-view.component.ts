@@ -14,7 +14,7 @@ export class PlanningViewComponent implements OnInit {
   isAuth = false;
   
   nw : number = 9;
-  public creneaux_agents_affiche !: Creneau[];
+  public creneaux_agents_affiche !: Creneau[]; //les instances des creneaux a afficher 
   nombreSemaineSelect : number = 1;
   typeAffichageSelect : string = "tout";
   liste_jour: string[];
@@ -71,28 +71,16 @@ export class PlanningViewComponent implements OnInit {
   private inscriptionChangementListeSolution(){
     this.planningService.listeSolution.subscribe(name => {
       let creneaux : Creneau[] = [];
-
-      //creneaux = this.planningService.getFileContent(name)
-
-      //Appelle au back pour la recupération du contenu du nom du fichier solution selectionné 
-            
+      //Appelle au back pour la recupération du contenu du nom du fichier solution selectionné       
       this.solveurCaller.getSolutionContent(name);
-
-      /*setTimeout(
-        ()=>{
-          this.planningService.creneaux = creneaux;
-          this.planningService.creneaux_triee = creneaux;
-          this.planningService.setCreneauxAffichable(this.nombreSemaineSelect,this.typeAffichageSelect,this.planningService.creneaux);
-        }, 1000
-      ) */
-     
     })
   }
 
   private subscribeListCreneauChange(){
     this.solveurCaller.creneaux_list.subscribe(creneaux => {
         this.planningService.creneaux = creneaux;
-        this.planningService.setCreneauxAffichable(this.nombreSemaineSelect,this.planningService.typeAffichageSelect,creneaux);
+        this.planningService.creneaux_triee = creneaux;
+        this.planningService.setCreneauxAffichable(this.nombreSemaineSelect,this.planningService.typeAffichageSelect,this.planningService.creneaux_triee);
     })
   }
 
@@ -100,9 +88,8 @@ export class PlanningViewComponent implements OnInit {
     this.planningService.listeTypeAff.subscribe( type => {
       //modifier le tableau a afficher 
       //affichage d'un nouveau component pour la selection du type
-      this.typeAffichageSelect = type;
       this.planningService.creneaux_triee = this.planningService.creneaux;
-      this.planningService.setCreneauxAffichable(this.nombreSemaineSelect,this.typeAffichageSelect,this.planningService.creneaux_triee);
+      this.planningService.setCreneauxAffichable(this.nombreSemaineSelect,type,this.planningService.creneaux_triee);
     })
   }
 

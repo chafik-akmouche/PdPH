@@ -20,7 +20,7 @@ export class PlanningService{
     public listeTypeContrat : BehaviorSubject<string>;
     public listeAgent : BehaviorSubject<string>;
     public creneaux : Creneau[] = [];
-    public creneaux_triee : Creneau[];
+    public creneaux_triee : Creneau[]; //contiendra la liste des creneaux après application des filtres
 
     constructor(private csvReader : CsvReader){
         this.creneaux_Aff = new EventEmitter();
