@@ -7,11 +7,14 @@ import { Creneau } from "./planning.service";
 export class CallSolver{
     solutions_list :  BehaviorSubject<string>;
     creneaux_list : BehaviorSubject<Creneau[]>;
+    filterParms : BehaviorSubject<FilterParams>;
 
     constructor(private httpClient : HttpClient){
         let creneau : any[] = [];
+        let filterParams : any;
         this.solutions_list = new BehaviorSubject("");
         this.creneaux_list = new BehaviorSubject(creneau);
+        this.filterParms = new BehaviorSubject(filterParams);
     }
 
     public sendDataToSolver(nb_semaine:number,data_input : string,hmax:number,hg_max:number,
@@ -34,7 +37,7 @@ export class CallSolver{
             .subscribe(
                 (res) => {
                     if(res){
-                        console.log(res.toString());
+                        //console.log(res.toString());
                         this.solutions_list.next(res.toString());
                     }
                 },
@@ -60,12 +63,42 @@ export class CallSolver{
     }
 
     public getDefaultSolutionsName(){
+        let filterParams : any;
         this.httpClient.get("http://localhost:8080/").subscribe(
             (res) => {
                 if(res){
-                    this.solutions_list.next(res.toString());
+                    filterParams = res;
+                    this.filterParms.next(filterParams);
+                    this.solutions_list.next(filterParams.solutions.toString());
                 }
             }
         )
     }
+
+
 }
+
+
+export class FilterParams{
+    public nombreSemaine : number;
+	public solutions : string[];
+
+    constructor(nombreSemaine : number, solutions: string[]){
+        this.nombreSemaine = nombreSemaine;
+        this.solutions = solutions;
+    }
+
+    public getNombreSemaine(){
+        return this.nombreSemaine;
+    }
+
+    public setNombreSemaine(nb_semaine : number){
+        this.nombreSemaine = nb_semaine;
+    }
+
+    public getSolutions(){
+        return this.solutions;
+    }
+}
+
+

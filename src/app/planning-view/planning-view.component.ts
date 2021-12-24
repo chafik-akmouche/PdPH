@@ -63,8 +63,6 @@ export class PlanningViewComponent implements OnInit {
       if(solutions_noms){
         this.solveurCaller.getSolutionContent(solutions_noms.split(",")[0]);
       }
-      else
-        console.log("null");
     })
   }
 

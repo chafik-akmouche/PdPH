@@ -3,7 +3,7 @@ import { NgModel } from '@angular/forms';
 import { CsvReader } from '../services/csvReader.service';
 import { PlanningService } from '../services/planning.service';
 import { SelectSolution } from '../services/selectSolution.service';
-import { CallSolver } from '../services/solverCall.service';
+import { CallSolver, FilterParams } from '../services/solverCall.service';
 
 
 @Component({
@@ -18,7 +18,7 @@ export class PlanningFilterComponent implements OnInit {
   isbtnSemaine = true;
   isbtnJour = false;
 
-  @Input() nombreSemaine : number;
+  nombreSemaine : number;
 
   listeSemaines : Array<number>;
   nombreSemaineSelect: any;
@@ -36,15 +36,19 @@ export class PlanningFilterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.listeSemaines = this.generateListeSemaines();
-    this.subscribeListSolutionChargement();
+    this.subscribeChargementParams();
+    
   }
 
  // fonction d'inscription au changement de reception d'une nouvelle liste des solutions après lancement solveur
- private subscribeListSolutionChargement(){
-  this.CallSolver.solutions_list.subscribe(Solution =>{
-    this.listeSolutionsNames = Solution.split(",");
-    this.selectSolution.setSolution(this.listeSolutionsNames);
+ private subscribeChargementParams(){
+  this.CallSolver.filterParms.subscribe(params =>{
+    let fp : FilterParams;
+    if(params != undefined){
+      this.nombreSemaine = params.nombreSemaine;
+      this.listeSolutionsNames = params.solutions.toString().split(",");
+      this.listeSemaines = this.generateListeSemaines();
+    }
   })
 }
 
@@ -57,8 +61,6 @@ export class PlanningFilterComponent implements OnInit {
 
     return liste_nombre_semaine;
   }
-
-  @ViewChild('content') mon_element:ElementRef | undefined;
 
   onSelectNombreSemaineChange($event : any){
     this.planningService.onSelectNombreSemaineChange($event.target.value);
