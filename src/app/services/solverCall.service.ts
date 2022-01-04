@@ -20,19 +20,14 @@ export class CallSolver{
         this.solveurParams = new BehaviorSubject(solveurParams);
     }
 
-    public sendDataToSolver(nb_semaine:number,input_file:string,data_input : string,hmax:number,hg_max:number,
-                            OffD:number,Reph:number,contrainte1 : boolean,contrainte2:boolean){
+    public sendDataToSolver(nb_semaine:number,input_file:string,data_input : string,contrainte11 : boolean,contrainte12 : boolean,
+                            contrainte13 : boolean, contrainte14 : boolean, contrainte15 : boolean){
 
         const object_solver = {
             "nb_semaine" : nb_semaine,
             "input_file" : input_file,
             "input_data" : data_input,
-            "hmax": hmax,
-            "hg_max":hg_max,
-            "offd":OffD,
-            "reph":Reph,
-            "contrainte1":contrainte1,
-            "contrainte2":contrainte2
+            
         };
 
 
@@ -43,6 +38,7 @@ export class CallSolver{
                         //console.log(res.toString());
                         this.solutions_list.next(res.toString());
                     }
+
                 },
                 (error) => {
                     console.log("Erreur retourner par le back " + error);
@@ -122,23 +118,21 @@ export class SolveurParam{
     public nb_semaine : number;
     public input_file: string;
     public input_data : string;
-    public hmax : number;
-    public hg_max : number;
-    public offd : number;
-    public reph : number;
-    public contrainte1 : boolean;
-    public contrainte2 : boolean;
+    public contrainte11 : boolean;
+    public contrainte12 : boolean;
+    public contrainte13 : boolean;
+    public contrainte14 : boolean;
+    public contrainte15 : boolean;
 
-    public constructor(nb : number, input : string, input_data : string, hmax : number,hg_max:number,offd:number,reph:number,c1:boolean,c2:boolean){
+    public constructor(nb : number, input : string, input_data : string, c11:boolean, c12:boolean, c13:boolean, c14:boolean, c15:boolean){
         this.nb_semaine = nb;
         this.input_file = input;
         this.input_data = input_data;
-        this.hmax = hmax;
-        this.hg_max = hg_max;
-        this.offd = offd;
-        this.reph = reph;
-        this.contrainte1 = c1;
-        this.contrainte2 = c2;
+        this.contrainte11 = c11;
+        this.contrainte12 = c12;
+        this.contrainte13 = c13;
+        this.contrainte14 = c14;
+        this.contrainte15 = c15;
     }
 }
 

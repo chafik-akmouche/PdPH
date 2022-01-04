@@ -8,87 +8,33 @@
     
     <p class="display-6">Personnalisation des contraintes</p>
 
-    <div class="form-group col-md-6">
-        <input type="checkbox" class="form-check-input" name="contrainte2" [ngModel] = "Contrainte2" required> Un seul poste de travail chaque jour par agent
-    </div>
-
-    <div class="form-group col-md-6">
-      <input type="checkbox" class="form-check-input" name="couverture_postes" [ngModel] = "true" required> Couverture de tous les postes
-    </div>
-
-    <div class="form-group col-md-6">
-      <input type="checkbox" class="form-check-input" name="respect_nbheure_contrat" [ngModel] = "true" required> Respect du nombre d’heures de chaque contrat
-    </div>
-    
-  </div> 
-
-  <div class="row mt-3 border p-3">
-    <p class="display-6">Personnalisation des données d'entrée</p>
-
-    <div class="row form-group mb-2 col-md-6">
-      <label for="inputSemaine" class="col-lg-8 col-form-label">Nombre de semaines de cycle</label>
-      <div class="col-lg-2">
+    <div class="row">
+      <label for="inputSemaine" class="col-lg-3 col-form-label">Nombre de semaines de cycle</label>
+      <div class="col-lg-1">
         <input type="number" class="form-control" id="inputSemaine" min="1" max="12" name="nb_semaines"  [ngModel] = "nb_semaines" required>
       </div>
     </div>
 
-    <div class="row form-group mb-2 col-md-6"> 
-      <label for="temps_min_repos_jour" class="col-lg-8 col-form-label">Temps minimal de repos journalier</label>
-      <div class="col-lg-2">
-        <input type="number" class="form-control" id="temps_min_repos_jour" name="OffD" [ngModel] = "OffD" required>
-      </div>
+    <div class="row mt-2">
+        <input type="checkbox" class="form-check-input m-1" name="contrainte11" [ngModel] = "contrainte11" required> Nombre minimal de jours consécutifs travaillés 
     </div>
 
-    <div class="row form-group mb-2 col-md-6">
-      <label for="temps_min_repos_hebd" class="col-md-8 col-form-label">Temps minimal de repos hebdomadaire</label>
-      <div class="col-md-2">
-        <input type="number" class="form-control" id="temps_min_repos_hebd" name="temps_min_repos_hebd" [ngModel] = "RepH" required>
-      </div>
+    <div class="row mt-2">
+      <input type="checkbox" class="form-check-input m-1" name="contrainte12" [ngModel] = "contrainte12" required> Nombre maximal de jours consécutifs travaillés
     </div>
 
-    <div class="form-group row col-md-6 mb-2">
-      <label for="nb_max_heure_travail_hebdo" class="col-lg-8 col-form-label">Nombre maximal d’heures de travail hebdomadaire</label>
-      <div class="col-lg-2">
-        <input type="number" class="form-control" id="nb_max_heure_travail_hebdo"  name="h_max" [ngModel] = "h_max" required>
-      </div>
+    <div class="row mt-2">
+      <input type="checkbox" class="form-check-input m-1" name="contrainte13" [ngModel] = "contrainte13" required> Même postes les samedi et dimanche consécutifs
     </div>
 
-    <div class="row form-group mb-2 col-md-6">
-      <label for="nb_max_heure_travail_semaine" class="col-md-8 col-form-label">Nombre maximal d’heures de travail sur 7 jours glissants</label>
-      <div class="col-md-2">
-        <input type="number" class="form-control" id="nb_max_heure_travail_semaine" name="hg_max" [ngModel] = "hg_max" required>
-      </div>
+    <div class="row mt-2">
+      <input type="checkbox" class="form-check-input m-1" name="contrainte14" [ngModel] = "contrainte14" required> Postes différents sur deux segments consécutifs 
     </div>
-
-    <div class="border p-3">
-
-      <p class="display-6">Données liées aux contrats</p>
-
-      <div class="row form-group mb-2  col-md-6">
-        <label for="nombre_contrats" class="col-md-4 col-form-label">Nombre de contrats</label>
-        <div class="col-md-2">
-          <input type="number" class="form-control" id="nombre_contrats" name="nombre_contrats" [ngModel] = "nombre_contrats" (change)="onNombreContratChange($event)" required>
-        </div>
-      </div>
-
-      <div class="row form-group mb-2  col-md-12">
-        <label for="pourcentage_contrat" class="col-md-6 col-form-label">Liste de pourcentages des contrats</label>
-        <div class="col-md" *ngFor="let ration of Ratio_base, let i = index">
-          <input type="text" class="form-control">
-        </div>
-      </div>
-  
-      <div class="row form-group mb-2  col-md-12">
-        <label for="nb_max_dim_travail_agent" class="col-md-6 col-form-label">Nombre maximal de dimanches travaillés par chaque agent</label>
-        <div class="col-md" *ngFor="let ratio of Ratio_base, let i = index">
-          <input type="text" class="form-control">
-        </div>
-      </div>
-
+    
+    <div class="row mt-2">
+      <input type="checkbox" class="form-check-input m-1" name="contrainte15" [ngModel] = "contrainte15" required> Au plus 30% de JCA chaque jour 
     </div>
-
   </div>
-   
 
   <div class="row mt-3 border p-3">
     <p class="display-6">Lancement du solveur</p>
@@ -105,7 +51,7 @@
 </form>
 
 <div class="nav">
-  <li routerLinkActive="active"><a routerLink="/" class="nav-item nav-link"> Voir les plannings </a></li>
+  <li routerLinkActive="active"><a href="http://localhost:4200/" class="nav-item nav-link"> Voir les plannings </a></li>
 </div>
 
 <div class="row mt-5">

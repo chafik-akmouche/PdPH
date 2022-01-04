@@ -15,47 +15,30 @@ export class ConfigurationComponent {
   file : any; //contiendra le fichier selectionner au lancement du solveur
   tab_data : string[] = []; //l'ensemble des lignes contenu dans le fichier d'entrée
   nb_semaines : number;
-  Ratio_base : number[]; //la liste des contrats
-  Ratio_dim_base: number[];  //la liste de pourcentages des dimanches travaillés 
-  h_max: number; //Nombre max d'heures par semaine
-  hg_max: number; //Nombre max d'heures par 7 jours glissants
-  OffD: number; //Nombre max d'heures par 7 jours glissants
-  RepH: number; //Nombre min d'heures de repos
-  Contrainte1 : boolean; // respect des besoins
-  Contrainte2: boolean; //Un poste par jour
+  
 
   list_solutions : string[];
+  contrainte11 : boolean; //Nombre minimal de jours consécutifs travaillés 
+  contrainte12 : boolean; //Nombre maximal de jours consécutifs travaillés
+  contrainte13 : boolean; //Même postes les samedi et dimanche consécutifs
+  contrainte14 : boolean; //Postes différents sur deux segments consécutifs 
+  contrainte15 : boolean; //Au plus 30% de JCA chaque jour 
+
 
   constructor(private CallSolver: CallSolver) {
     this.nb_semaines = 2;
     this.nombre_contrats = 7;
-    this.h_max = 45; 
-    this.hg_max = 48; 
-    this.OffD = 12; 
-    this.RepH=36;
-    this.Contrainte2 = true;
-    this.Contrainte1 = true;
-    this.Ratio_base = [1,0.9,0.8,0.75,0.7,0.6,0.5];
-    this.Ratio_dim_base = [1,1,1,0.75,0.75,0.6,0.6];
     this.list_solutions = [];
+    this.contrainte11 = true;
+    this.contrainte12 = true;
+    this.contrainte13 = true;
+    this.contrainte14 = true;
+    this.contrainte15 = true;
   }
 
 
   checkFile(file : string) {
     return (file.endsWith(".txt"));
-  }
-
-  /** fonction permettant d'initialiser en cas de changement du nombre des contrat:
-   *  la liste des contrats et la liste des pourcentage des dimanches travaillé **/
-  onNombreContratChange($event:any){
-    this.nombre_contrats = $event.target.value;
-    this.Ratio_base = [];
-    this.Ratio_dim_base = [];
-
-    for(let i = 0; i < this.nombre_contrats;i++){
-      this.Ratio_base.push(0);
-      this.Ratio_dim_base.push(0);
-    }
   }
 
   public onFileChanged($event:any){
@@ -70,21 +53,21 @@ export class ConfigurationComponent {
 
 
     this.nb_semaines =  form.value["nb_semaines"];
-    this.h_max = form.value["h_max"];
-    this.hg_max = form.value["hg_max"];
-    this.OffD = form.value["OffD"];
-    this.Contrainte2 = form.value["contrainte2"];
+    this.contrainte11 = form.value["contrainte11"];
+    this.contrainte12 = form.value["contrainte12"];
+    this.contrainte13 = form.value["contrainte13"];
+    this.contrainte14 = form.value["contrainte14"];
+    this.contrainte15 = form.value["contrainte15"];
 
     fileReader.onload = (e) => {
       str = fileReader.result?.toString().trim();
 
       //Appel à la méthode du service qui va envoyer les informations au back
-      this.CallSolver.sendDataToSolver(this.nb_semaines,this.file.name,str,this.h_max,this.hg_max,this.OffD,this.RepH,this.Contrainte1,this.Contrainte2);
+      this.CallSolver.sendDataToSolver(this.nb_semaines,this.file.name,str,this.contrainte11,this.contrainte12,this.contrainte13,this.contrainte14,this.contrainte15);
     }
 
     fileReader.readAsText(this.file);
 
-    console.log(this.file.name);
   }
 
 }

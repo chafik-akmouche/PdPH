@@ -7,10 +7,11 @@
   <div class="collapse" id="collapseRecapitulatif">
     <div class="card card-body">
         <p>Nombre de semaines de cycle = {{solveurParams.nb_semaine}}</p>
-        <p>Nombre max d'heures par semaine = {{solveurParams.hmax}}</p> 
-        <p>Nombre max d'heures par 7 jours glissants = {{solveurParams.hg_max}} </p>
-        <p>Nombre min d'heures de repos = {{solveurParams.offd}}</p>
-        <p>Un poste par jour = {{solveurParams.contrainte2}}</p>
+        <p>Nombre minimal de jours consécutifs travaillés = {{solveurParams.contrainte11}}</p> 
+        <p>Nombre maximal de jours consécutifs travaillés = {{solveurParams.contrainte12}} </p>
+        <p>Même postes les samedi et dimanche consécutifs = {{solveurParams.contrainte13}}</p>
+        <p>Postes différents sur deux segments consécutifs  = {{solveurParams.contrainte14}}</p>
+        <p>Au plus 30% de JCA chaque jour = {{solveurParams.contrainte15}}</p>
         <p>Nom du fichier d'entrée: {{solveurParams.input_file}}</p>
     </div>
   </div>
