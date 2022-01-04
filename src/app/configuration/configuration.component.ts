@@ -79,10 +79,12 @@ export class ConfigurationComponent {
       str = fileReader.result?.toString().trim();
 
       //Appel à la méthode du service qui va envoyer les informations au back
-      this.CallSolver.sendDataToSolver(this.nb_semaines,str,this.h_max,this.hg_max,this.OffD,this.RepH,this.Contrainte1,this.Contrainte2);
+      this.CallSolver.sendDataToSolver(this.nb_semaines,this.file.name,str,this.h_max,this.hg_max,this.OffD,this.RepH,this.Contrainte1,this.Contrainte2);
     }
 
     fileReader.readAsText(this.file);
+
+    console.log(this.file.name);
   }
 
 }

@@ -68,7 +68,6 @@ export class PlanningViewComponent implements OnInit {
 
   private inscriptionChangementListeSolution(){
     this.planningService.listeSolution.subscribe(name => {
-      let creneaux : Creneau[] = [];
       //Appelle au back pour la recupération du contenu du nom du fichier solution selectionné       
       this.solveurCaller.getSolutionContent(name);
     })

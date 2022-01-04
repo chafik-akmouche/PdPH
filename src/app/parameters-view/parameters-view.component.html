@@ -1,0 +1,17 @@
+<div *ngIf="solveurParams">
+  <p>
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRecapitulatif" aria-expanded="false" aria-controls="collapseExample">
+        Recapitulatif des paramétres d'entrée
+    </button>
+  </p>
+  <div class="collapse" id="collapseRecapitulatif">
+    <div class="card card-body">
+        <p>Nombre de semaines de cycle = {{solveurParams.nb_semaine}}</p>
+        <p>Nombre max d'heures par semaine = {{solveurParams.hmax}}</p> 
+        <p>Nombre max d'heures par 7 jours glissants = {{solveurParams.hg_max}} </p>
+        <p>Nombre min d'heures de repos = {{solveurParams.offd}}</p>
+        <p>Un poste par jour = {{solveurParams.contrainte2}}</p>
+        <p>Nom du fichier d'entrée: {{solveurParams.input_file}}</p>
+    </div>
+  </div>
+</div>

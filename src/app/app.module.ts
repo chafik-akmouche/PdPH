@@ -21,6 +21,7 @@ import { CallSolver } from './services/solverCall.service';
 
 //le module de pagination
 import {NgxPaginationModule} from 'ngx-pagination';
+import { ParametersViewComponent } from './parameters-view/parameters-view.component';
 
 const appRoutes : Routes = [
   { path: 'plannings', component : PlanningViewComponent},
@@ -38,7 +39,8 @@ const appRoutes : Routes = [
     PlanningFilterComponent,
     PlanningViewComponent,
     ConfigurationComponent,
-    FourOhFourComponent
+    FourOhFourComponent,
+    ParametersViewComponent
   ],
   imports: [
     BrowserModule,

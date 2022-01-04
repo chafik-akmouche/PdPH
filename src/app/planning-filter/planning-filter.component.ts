@@ -45,7 +45,7 @@ export class PlanningFilterComponent implements OnInit {
   this.CallSolver.filterParms.subscribe(params =>{
     let fp : FilterParams;
     if(params != undefined){
-      this.nombreSemaine = params.nombreSemaine;
+      this.nombreSemaine = params.nombreSemaine; 
       this.listeSolutionsNames = params.solutions.toString().split(",");
       this.listeSemaines = this.generateListeSemaines();
     }
