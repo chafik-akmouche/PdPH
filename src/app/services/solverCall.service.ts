@@ -9,6 +9,7 @@ export class CallSolver{
     creneaux_list : BehaviorSubject<Creneau[]>;
     filterParms : BehaviorSubject<FilterParams>;
     solveurParams : BehaviorSubject<SolveurParam>;
+    solver_state : BehaviorSubject<string>;
 
     constructor(private httpClient : HttpClient){
         let creneau : any[] = [];
@@ -18,27 +19,18 @@ export class CallSolver{
         this.creneaux_list = new BehaviorSubject(creneau);
         this.filterParms = new BehaviorSubject(filterParams);
         this.solveurParams = new BehaviorSubject(solveurParams);
+        this.solver_state = new BehaviorSubject("");
     }
 
     public sendDataToSolver(nb_semaine:number,input_file:string,data_input : string,contrainte11 : boolean,contrainte12 : boolean,
                             contrainte13 : boolean, contrainte14 : boolean, contrainte15 : boolean){
+        
+        let solverParams : SolveurParam = new SolveurParam(nb_semaine,input_file,data_input,contrainte11,contrainte12,contrainte13,contrainte14,contrainte15);
 
-        const object_solver = {
-            "nb_semaine" : nb_semaine,
-            "input_file" : input_file,
-            "input_data" : data_input,
-            
-        };
-
-
-        this.httpClient.post("http://localhost:8080/callsolveur", object_solver)    
+        this.httpClient.post("http://localhost:8080/callsolveur",solverParams)    
             .subscribe(
                 (res) => {
-                    if(res){
-                        //console.log(res.toString());
-                        this.solutions_list.next(res.toString());
-                    }
-
+                    this.solver_state.next(res.toString()); 
                 },
                 (error) => {
                     console.log("Erreur retourner par le back " + error);

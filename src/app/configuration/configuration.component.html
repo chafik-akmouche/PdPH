@@ -2,6 +2,19 @@
   <h2 class="text-muted text-center"> Page de configuration </h2>
 </div>
 
+<div id="alert_message">
+
+</div>
+<div *ngIf = "solution_found == 'false'" id="message_success" class="alert alert-danger alert-dismissible fade show" role="alert">
+  Aucune solution n'a été trouvée, veuillez adaptez les paramétres d'entrée et réessayez !
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div *ngIf = "solution_found == 'true'" id="message_reject" class="alert alert-success alert-dismissible fade show" role="alert">
+  Au moins une solution a été trouvée, veuillez vous re-dirigez vers la page de visualisation !
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
 <form class="form row g-3 mt-5"  (ngSubmit)="lancerSolveur(f)"  #f="ngForm">
 
   <div class="row mt-3 border p-3">
@@ -16,23 +29,23 @@
     </div>
 
     <div class="row mt-2">
-        <input type="checkbox" class="form-check-input m-1" name="contrainte11" [ngModel] = "contrainte11" required> Nombre minimal de jours consécutifs travaillés 
+        <input type="checkbox" class="form-check-input m-1" name="contrainte11" [ngModel] = "contrainte11"> Nombre minimal de jours consécutifs travaillés 
     </div>
 
     <div class="row mt-2">
-      <input type="checkbox" class="form-check-input m-1" name="contrainte12" [ngModel] = "contrainte12" required> Nombre maximal de jours consécutifs travaillés
+      <input type="checkbox" class="form-check-input m-1" name="contrainte12" [ngModel] = "contrainte12"> Nombre maximal de jours consécutifs travaillés
     </div>
 
     <div class="row mt-2">
-      <input type="checkbox" class="form-check-input m-1" name="contrainte13" [ngModel] = "contrainte13" required> Même postes les samedi et dimanche consécutifs
+      <input type="checkbox" class="form-check-input m-1" name="contrainte13" [ngModel] = "contrainte13"> Même postes les samedi et dimanche consécutifs
     </div>
 
     <div class="row mt-2">
-      <input type="checkbox" class="form-check-input m-1" name="contrainte14" [ngModel] = "contrainte14" required> Postes différents sur deux segments consécutifs 
+      <input type="checkbox" class="form-check-input m-1" name="contrainte14" [ngModel] = "contrainte14"> Postes différents sur deux segments consécutifs 
     </div>
     
     <div class="row mt-2">
-      <input type="checkbox" class="form-check-input m-1" name="contrainte15" [ngModel] = "contrainte15" required> Au plus 30% de JCA chaque jour 
+      <input type="checkbox" class="form-check-input m-1" name="contrainte15" [ngModel] = "contrainte15"> Au plus 30% de JCA chaque jour 
     </div>
   </div>
 
@@ -51,10 +64,9 @@
 </form>
 
 <div class="nav">
-  <li routerLinkActive="active"><a href="http://localhost:4200/" class="nav-item nav-link"> Voir les plannings </a></li>
+  <li routerLinkActive="active"><a href="http://localhost:4200/" class="nav-item nav-link" > Voir les plannings </a></li>
 </div>
 
 <div class="row mt-5">
   <!--<p *ngIf = "solutionStatus == true">{{solutionStatus}}</p> -->
 </div>
-

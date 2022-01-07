@@ -15,7 +15,8 @@ export class ConfigurationComponent {
   file : any; //contiendra le fichier selectionner au lancement du solveur
   tab_data : string[] = []; //l'ensemble des lignes contenu dans le fichier d'entrée
   nb_semaines : number;
-  
+  solution_found : string = "";
+  btn_clicked : boolean = false;
 
   list_solutions : string[];
   contrainte11 : boolean; //Nombre minimal de jours consécutifs travaillés 
@@ -36,6 +37,16 @@ export class ConfigurationComponent {
     this.contrainte15 = true;
   }
 
+  ngOnInit(): void {
+    this.subscribeToSolverStateChange();
+  }
+
+
+  subscribeToSolverStateChange(){
+    this.CallSolver.solver_state.subscribe(state => {
+      this.solution_found = state;
+    })
+  }
 
   checkFile(file : string) {
     return (file.endsWith(".txt"));
@@ -47,6 +58,7 @@ export class ConfigurationComponent {
 
 
   lancerSolveur(form: NgForm) {
+    this.btn_clicked = true;
     let fileReader = new FileReader();
     let str : any = ""; //contient le contenu du fichier d'entrée en string
     let tab_val : string[] = [];
@@ -57,7 +69,7 @@ export class ConfigurationComponent {
     this.contrainte12 = form.value["contrainte12"];
     this.contrainte13 = form.value["contrainte13"];
     this.contrainte14 = form.value["contrainte14"];
-    this.contrainte15 = form.value["contrainte15"];
+    this.contrainte15 = form.value["contrainte15"]
 
     fileReader.onload = (e) => {
       str = fileReader.result?.toString().trim();

@@ -25,7 +25,7 @@
     <!-- selection du type de contrat -->
     <div class="col-lg" *ngIf = "isTypeContrat" (change) = "onSelectTypeContratChange($event)">
         <select class="form-select">
-            <option value="tout" selected>tout les contrats</option>
+            <option value="tout" selected>tous les contrats</option>
             <option *ngFor="let c of listeContrats, let i = index" [value]="c">{{c}}</option>
         </select>
      </div>
