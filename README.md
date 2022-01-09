@@ -1,4 +1,4 @@
-# Planning de Personnel Hospitalier - PdPH (Front)
+# Planning de Personnel Hospitalier - PdPH (Frontend)
 
 Angular version : `12.2.11`
 
